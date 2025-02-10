@@ -1,0 +1,17 @@
+{
+    "Materials":[
+        {
+            "Material":"1234",
+            "Properties":[
+                {
+                    "PropertyName": "Type",
+                    "PropertyValue":"Finished Product"
+                },
+                {
+                    "PropertyName": "Unit of Measure",
+                    "PropertyValue":"PC"
+                }
+            ]
+        }
+    ]
+}
