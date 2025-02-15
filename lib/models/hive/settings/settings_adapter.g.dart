@@ -21,13 +21,16 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       textScaleFactor: fields[1] == null ? 1.0 : fields[1] as double,
       locale: fields[2] == null ? 0 : fields[2] as int,
       seedColorId: fields[3] == null ? 7 : fields[3] as int,
+      baseUrl: fields[4] as String,
+      inventoryUrl: fields[6] as String,
+      materialsUrl: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.isDark)
       ..writeByte(1)
@@ -35,7 +38,13 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(2)
       ..write(obj.locale)
       ..writeByte(3)
-      ..write(obj.seedColorId);
+      ..write(obj.seedColorId)
+      ..writeByte(4)
+      ..write(obj.baseUrl)
+      ..writeByte(5)
+      ..write(obj.materialsUrl)
+      ..writeByte(6)
+      ..write(obj.inventoryUrl);
   }
 
   @override

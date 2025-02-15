@@ -1,8 +1,6 @@
-// ignore_for_file: constant_identifier_names
-const String ZIM_PICK_SRV = '/sap/opu/odata/sap/ZIM_PICK_SRV';
-const String loginMetaDataEndpoint = '$ZIM_PICK_SRV/\$metadata';
-
 const String defaultFont = 'Montserrat';
+
+const String loginMetaDataEndpoint = '';
 
 class RivConstants {
   static const animationPath = 'assets/animations';
@@ -28,6 +26,6 @@ class ImageConstant {
 class HiveConstants {
   static const String settingsBox = 'settings_box';
   static const String docBarcodesBox = 'doc_barcodes_box';
-  static const String hhtDirectory = 'hht_box';
+  static const String hhtDirectory = 'hht_directory';
   static const String materialDirectory = 'material_box';
 }

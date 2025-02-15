@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ErrorPage extends ConsumerWidget {
-  final String errorMessage;
-  const ErrorPage(this.errorMessage, {super.key});
+  final String? errorMessage;
+  const ErrorPage({super.key, this.errorMessage});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,7 +14,7 @@ class ErrorPage extends ConsumerWidget {
         child: Column(
           children: [
             const Icon(Icons.error_sharp, size: 60),
-            Text(errorMessage),
+            Text(errorMessage!),
           ],
         ),
       ),

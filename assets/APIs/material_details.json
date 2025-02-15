@@ -1,15 +1,15 @@
 {
-    "Materials":[
+    "Materials": [
         {
-            "Material":"1234",
-            "Properties":[
+            "Material": "1234",
+            "Properties": [
                 {
                     "PropertyName": "Type",
-                    "PropertyValue":"Finished Product"
+                    "PropertyValue": "Finished Product"
                 },
                 {
                     "PropertyName": "Unit of Measure",
-                    "PropertyValue":"PC"
+                    "PropertyValue": "PC"
                 }
             ]
         }

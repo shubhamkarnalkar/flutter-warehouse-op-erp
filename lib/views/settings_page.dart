@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
 import 'package:warehouse_erp/models/hive/settings/settings_adapter.dart';
 import 'package:warehouse_erp/utils/localization/app_localization.dart';
 import 'package:warehouse_erp/utils/localization/lang_text_constants.dart';
+import 'package:warehouse_erp/utils/router/router_imports.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -44,6 +46,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
                 settings: settings,
                 settingsController: settingsController,
               ),
+              const TileForUrlSelect(),
             ],
           ),
         ),
@@ -182,6 +185,37 @@ class TileForTextScale extends ConsumerWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TileForUrlSelect extends ConsumerWidget {
+  const TileForUrlSelect({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return InkWell(
+      onTap: () => context.goNamed(RouteConstants.setUrlsPage),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 17),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              LangTextConstants.lbl_set_urls.tr,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_right_rounded),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

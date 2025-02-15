@@ -20,7 +20,12 @@ final _homeRoute = GoRoute(
   path: 'home',
   name: RouteConstants.home,
   builder: (context, state) => const Home(),
-  routes: [..._transactionRoutes, _inventoryPageRoute, _materialsPageRoute],
+  routes: [
+    ..._transactionRoutes,
+    _inventoryPageRoute,
+    _materialsPageRoute,
+    _settingsPageRoute,
+  ],
 );
 
 List<RouteBase> _transactionRoutes = <RouteBase>[];
@@ -36,5 +41,19 @@ final _materialsPageRoute = GoRoute(
   path: 'materials',
   name: RouteConstants.materialsPage,
   builder: (context, state) => const MaterialsPage(),
+  routes: const [],
+);
+
+final _settingsPageRoute = GoRoute(
+  path: 'settings',
+  name: RouteConstants.settings,
+  builder: (context, state) => const SettingsPage(),
+  routes: [_setURLSPageRoute],
+);
+
+final _setURLSPageRoute = GoRoute(
+  path: 'set-url',
+  name: RouteConstants.setUrlsPage,
+  builder: (context, state) => const SetUrlPage(),
   routes: const [],
 );

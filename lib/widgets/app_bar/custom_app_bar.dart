@@ -32,6 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       // leading: const Icon(Icons.arrow_back_ios),
       title: Text(title ?? ''),
+      actions: actions,
     );
   }
 

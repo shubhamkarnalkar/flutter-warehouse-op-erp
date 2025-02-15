@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:warehouse_erp/controllers/settings_controller.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 
@@ -7,10 +8,10 @@ class MaterialsPage extends StatefulHookConsumerWidget {
   const MaterialsPage({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _InventoryPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MaterialsPageState();
 }
 
-class _InventoryPageState extends ConsumerState<MaterialsPage> {
+class _MaterialsPageState extends ConsumerState<MaterialsPage> {
   @override
   Widget build(BuildContext context) {
     return Responsive(
@@ -19,6 +20,11 @@ class _InventoryPageState extends ConsumerState<MaterialsPage> {
           hasBackButton: true,
           title: LangTextConstants.lbl_materials.tr,
         ),
+        body: ref.watch(settingsControllerProvider).materialsUrl.isNotEmpty
+            ? const ErrorPage(errorMessage: "Material's URL is not set")
+            : const Column(
+                children: [],
+              ),
       ),
     );
   }

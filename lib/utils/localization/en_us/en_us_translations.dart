@@ -49,4 +49,5 @@ final Map<String, String> enUs = {
   LangTextConstants.lbl_edit: "Edit",
   LangTextConstants.lbl_materials: "Materials",
   LangTextConstants.lbl_inventory: "Inventory",
+  LangTextConstants.lbl_set_urls: "Set URLs for App",
 };

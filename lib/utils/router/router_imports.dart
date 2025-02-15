@@ -3,6 +3,7 @@ import 'package:warehouse_erp/views/home_page.dart';
 import 'package:warehouse_erp/views/inventory_page.dart';
 import 'package:warehouse_erp/views/login_page.dart';
 import 'package:warehouse_erp/views/materials_page.dart';
+import 'package:warehouse_erp/views/set_urls_page.dart';
 import 'package:warehouse_erp/views/settings_page.dart';
 import 'package:warehouse_erp/views/sync_page.dart';
 import 'package:warehouse_erp/views/transaction_page.dart';

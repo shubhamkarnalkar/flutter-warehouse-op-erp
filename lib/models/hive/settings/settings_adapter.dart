@@ -18,11 +18,23 @@ class SettingsModel extends HiveObject with EquatableMixin {
   @HiveField(3, defaultValue: 7)
   late int seedColorId;
 
+  @HiveField(4)
+  late String baseUrl;
+
+  @HiveField(5)
+  late String materialsUrl;
+
+  @HiveField(6)
+  late String inventoryUrl;
+
   SettingsModel({
     this.isDark = true,
     this.textScaleFactor = 1.0,
     this.locale = 0,
     this.seedColorId = 7,
+    this.baseUrl = '',
+    this.inventoryUrl = '',
+    this.materialsUrl = '',
   });
 
   @override
@@ -37,12 +49,18 @@ class SettingsModel extends HiveObject with EquatableMixin {
     double? textScaleFactor,
     int? locale,
     int? seedColorId,
+    String? baseUrl,
+    String? inventoryUrl,
+    String? materialsUrl,
   }) {
     return SettingsModel(
       isDark: isDark ?? this.isDark,
       textScaleFactor: textScaleFactor ?? this.textScaleFactor,
       locale: locale ?? this.locale,
       seedColorId: seedColorId ?? this.seedColorId,
+      baseUrl: baseUrl ?? this.baseUrl,
+      materialsUrl: materialsUrl ?? this.materialsUrl,
+      inventoryUrl: inventoryUrl ?? this.inventoryUrl,
     );
   }
 }

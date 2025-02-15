@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:warehouse_erp/models/hive/settings/settings_adapter.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 
+import '../models/local_settings_model.dart';
+
 final settingsBoxProvider = Provider((ref) {
   return Hive.box<SettingsModel>(HiveConstants.settingsBox);
 });
@@ -84,6 +86,38 @@ class SettingsController extends StateNotifier<SettingsModel> {
       state = state.copyWith(locale: l);
     } catch (e) {
       //TODO show dialogue to let the user know that the int passed is not valid
+    }
+  }
+
+  String getURL(int indx) {
+    switch (indx) {
+      case 0:
+        return state.baseUrl;
+      case 1:
+        return state.inventoryUrl;
+      case 2:
+        return state.materialsUrl;
+      default:
+        return '';
+    }
+  }
+
+  Future<void> setUrl(UrlsApp url, String value) async {
+    switch (url) {
+      case UrlsApp.base:
+        await _settingsBox.put(1, state.copyWith(baseUrl: value));
+        state = state.copyWith(baseUrl: value);
+        break;
+      case UrlsApp.inventory:
+        await _settingsBox.put(1, state.copyWith(inventoryUrl: value));
+        state = state.copyWith(inventoryUrl: value);
+        break;
+      case UrlsApp.materials:
+        await _settingsBox.put(1, state.copyWith(materialsUrl: value));
+        state = state.copyWith(materialsUrl: value);
+        break;
+
+      default:
     }
   }
 }
