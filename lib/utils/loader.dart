@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:warehouse_erp/widgets/custom_widgets.dart';
 import 'constants/app_constants.dart';
+import 'package:rive/rive.dart' as rive;
 
-final loadingMessageProvider = StateProvider<String>((ref) {
-  return 'Processing....';
+final loadingMessageProvider = StateProvider.autoDispose<String>((ref) {
+  return 'Click on Play Button to Start';
 });
 
 class Loader extends ConsumerStatefulWidget {
@@ -26,8 +26,6 @@ class _LoaderState extends ConsumerState<Loader> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              paddedCompanyLogo(),
-              sizedBoxH20(),
               Container(
                 height: 350,
                 width: 350,
@@ -35,9 +33,15 @@ class _LoaderState extends ConsumerState<Loader> {
                   borderRadius: BorderRadius.circular(20),
                   shape: BoxShape.rectangle,
                 ),
-                child: CustomImageView(
-                  imagePath: RivConstants.earthAnimation,
+                // child: CustomImageView(
+                //   imagePath: RivConstants.earthAnim,
+                // ),
+                child: rive.RiveAnimation.asset(
+                  RivConstants.vehicles,
+                  fit: BoxFit.contain,
                 ),
+                // child: const rive.RiveAnimation.network(
+                //     'https://cdn.rive.app/animations/vehicles.riv'),
               ),
               const SizedBox(
                 height: 30,

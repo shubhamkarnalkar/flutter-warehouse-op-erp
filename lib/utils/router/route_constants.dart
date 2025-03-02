@@ -16,22 +16,7 @@ class RouteConstants {
     NavigationDestination(
       icon: Icon(Icons.sort_by_alpha_outlined),
       selectedIcon: Icon(Icons.sort_by_alpha_rounded),
-      label: 'Materials',
-    ),
-    NavigationDestination(
-      icon: Icon(Icons.warehouse_outlined),
-      selectedIcon: Icon(Icons.warehouse_rounded),
-      label: 'Inventory',
-    ),
-    NavigationDestination(
-      icon: Icon(Icons.article_outlined),
-      selectedIcon: Icon(Icons.article_rounded),
-      label: 'Transactions',
-    ),
-    NavigationDestination(
-      icon: Icon(Icons.sync_outlined),
-      selectedIcon: Icon(Icons.sync_rounded),
-      label: 'Sync',
+      label: 'Show Animation',
     ),
     NavigationDestination(
       icon: Icon(Icons.settings_applications_outlined),
@@ -42,14 +27,8 @@ class RouteConstants {
   static Widget getScreen(BuildContext context, int index) {
     switch (index) {
       case 0:
-        return const MaterialsPage();
+        return const ShowAnimationPage();
       case 1:
-        return const InventoryPage();
-      case 2:
-        return const TransactionPage();
-      case 3:
-        return const SyncPage();
-      case 4:
         return const SettingsPage();
       default:
         return const Text('Something went wrong');

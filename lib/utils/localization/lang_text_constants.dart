@@ -48,4 +48,5 @@ class LangTextConstants {
   static String lbl_edit = 'lbl_edit';
   static String lbl_materials = 'lbl_materials';
   static String lbl_inventory = 'lbl_inventory';
+  static String lbl_show_animation = 'lbl_show_animation';
 }

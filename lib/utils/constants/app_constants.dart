@@ -5,9 +5,13 @@ const String loginMetaDataEndpoint = '$ZIM_PICK_SRV/\$metadata';
 const String defaultFont = 'Montserrat';
 
 class RivConstants {
-  static const animationPath = 'assets/animations';
-  static String cartAnimation = '$animationPath/CartAnimation.riv';
-  static String earthAnimation = '$animationPath/EarthAnimation.riv';
+  static const _animationPath = 'assets/animations';
+  static String cartAnimation = '$_animationPath/CartAnimation.riv';
+  static String earthAnimation = '$_animationPath/EarthAnimation.riv';
+  static String earthAnim = '$_animationPath/earth.riv';
+  static String littleBoy = '$_animationPath/little-boy.riv';
+  static String space = '$_animationPath/space.riv';
+  static String vehicles = '$_animationPath/vehicles.riv';
 }
 
 class ImageConstant {

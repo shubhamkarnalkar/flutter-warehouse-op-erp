@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 part 'material_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 2)
 class MaterialsModel extends HiveObject with EquatableMixin {
   @HiveField(0)
   late String material;
