@@ -19,6 +19,7 @@ class _InventoryPageState extends ConsumerState<InventoryPage> {
           hasBackButton: true,
           title: LangTextConstants.lbl_inventory.tr,
         ),
+        body: Loader(),
       ),
     );
   }

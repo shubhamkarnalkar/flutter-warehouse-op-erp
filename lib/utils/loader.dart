@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 import 'constants/app_constants.dart';
+import 'package:rive/rive.dart' as rive;
 
 final loadingMessageProvider = StateProvider.autoDispose<String>((ref) {
   return 'Processing....';
@@ -34,8 +35,9 @@ class _LoaderState extends ConsumerState<Loader> {
                   borderRadius: BorderRadius.circular(20),
                   shape: BoxShape.rectangle,
                 ),
-                child: CustomImageView(
-                  imagePath: RivConstants.earthAnimation,
+                child: rive.RiveAnimation.asset(
+                  RivConstants.earthAnimation,
+                  fit: BoxFit.contain,
                 ),
               ),
               const SizedBox(
