@@ -20,7 +20,9 @@ Material _$MaterialFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Material {
+  @JsonKey(name: 'Material')
   String get material => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Properties')
   List<Property> get properties => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +36,9 @@ abstract class $MaterialCopyWith<$Res> {
   factory $MaterialCopyWith(Material value, $Res Function(Material) then) =
       _$MaterialCopyWithImpl<$Res, Material>;
   @useResult
-  $Res call({String material, List<Property> properties});
+  $Res call(
+      {@JsonKey(name: 'Material') String material,
+      @JsonKey(name: 'Properties') List<Property> properties});
 }
 
 /// @nodoc
@@ -74,7 +78,9 @@ abstract class _$$MaterialImplCopyWith<$Res>
       __$$MaterialImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String material, List<Property> properties});
+  $Res call(
+      {@JsonKey(name: 'Material') String material,
+      @JsonKey(name: 'Properties') List<Property> properties});
 }
 
 /// @nodoc
@@ -108,16 +114,19 @@ class __$$MaterialImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MaterialImpl implements _Material {
   const _$MaterialImpl(
-      {required this.material, required final List<Property> properties})
+      {@JsonKey(name: 'Material') required this.material,
+      @JsonKey(name: 'Properties') required final List<Property> properties})
       : _properties = properties;
 
   factory _$MaterialImpl.fromJson(Map<String, dynamic> json) =>
       _$$MaterialImplFromJson(json);
 
   @override
+  @JsonKey(name: 'Material')
   final String material;
   final List<Property> _properties;
   @override
+  @JsonKey(name: 'Properties')
   List<Property> get properties {
     if (_properties is EqualUnmodifiableListView) return _properties;
     // ignore: implicit_dynamic_type
@@ -161,15 +170,18 @@ class _$MaterialImpl implements _Material {
 
 abstract class _Material implements Material {
   const factory _Material(
-      {required final String material,
+      {@JsonKey(name: 'Material') required final String material,
+      @JsonKey(name: 'Properties')
       required final List<Property> properties}) = _$MaterialImpl;
 
   factory _Material.fromJson(Map<String, dynamic> json) =
       _$MaterialImpl.fromJson;
 
   @override
+  @JsonKey(name: 'Material')
   String get material;
   @override
+  @JsonKey(name: 'Properties')
   List<Property> get properties;
   @override
   @JsonKey(ignore: true)

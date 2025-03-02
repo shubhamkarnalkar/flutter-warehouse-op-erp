@@ -8,16 +8,16 @@ part of 'materials.dart';
 
 _$MaterialImpl _$$MaterialImplFromJson(Map<String, dynamic> json) =>
     _$MaterialImpl(
-      material: json['material'] as String,
-      properties: (json['properties'] as List<dynamic>)
+      material: json['Material'] as String,
+      properties: (json['Properties'] as List<dynamic>)
           .map((e) => Property.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$$MaterialImplToJson(_$MaterialImpl instance) =>
     <String, dynamic>{
-      'material': instance.material,
-      'properties': instance.properties,
+      'Material': instance.material,
+      'Properties': instance.properties,
     };
 
 _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>

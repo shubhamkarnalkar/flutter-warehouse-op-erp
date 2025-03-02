@@ -7,8 +7,8 @@ part 'materials.g.dart';
 @freezed
 class Material with _$Material {
   const factory Material({
-    required String material,
-    required List<Property> properties,
+    @JsonKey(name: 'Material') required String material,
+    @JsonKey(name: 'Properties') required List<Property> properties,
   }) = _Material;
 
   factory Material.fromJson(Map<String, dynamic> json) =>

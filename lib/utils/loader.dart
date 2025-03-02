@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 import 'constants/app_constants.dart';
 
-final loadingMessageProvider = StateProvider<String>((ref) {
+final loadingMessageProvider = StateProvider.autoDispose<String>((ref) {
   return 'Processing....';
 });
 
@@ -26,7 +26,6 @@ class _LoaderState extends ConsumerState<Loader> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              paddedCompanyLogo(),
               sizedBoxH20(),
               Container(
                 height: 350,
