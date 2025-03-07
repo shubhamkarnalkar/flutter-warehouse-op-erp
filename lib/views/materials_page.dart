@@ -23,13 +23,19 @@ class _MaterialsPageState extends ConsumerState<MaterialsPage> {
           title: LangTextConstants.lbl_materials.tr,
         ),
         body: ref.watch(settingsControllerProvider).materialsUrl.isEmpty
+
+            /// TODO
             ? const ErrorPage(errorMessage: "Material's URL is not set")
             : switch (matProv) {
-                AsyncData(value: final matList) => ListView(
-                    children: [
-                      for (final mat in matList) Text(mat.material),
-                    ],
-                  ),
+                AsyncData(value: final matList) => matList.isEmpty
+
+                    /// TODO
+                    ? const ErrorPage(errorMessage: "No data found")
+                    : ListView(
+                        children: [
+                          for (final mat in matList) Text(mat.material),
+                        ],
+                      ),
                 AsyncError(:final error) => ErrorPage(
                     errorMessage: error.toString(),
                   ),

@@ -24,9 +24,17 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
   }
 
   List<MaterialsModel> _getMaterialsFromLocal() {
-    return _materialsBox.values.toList().isNotEmpty
-        ? _materialsBox.values.toList()
-        : [];
+    final List<MaterialsModel> vals = _materialsBox.values.toList();
+    final List<MaterialsModel> finVals = [];
+    if (vals.isNotEmpty) {
+      vals.toSet().toList();
+      for (MaterialsModel element in vals) {
+        if (!finVals.contains(element)) {
+          finVals.add(element);
+        }
+      }
+    }
+    return finVals.isNotEmpty ? finVals : [];
   }
 
   Future<void> fetchMaterials() async {

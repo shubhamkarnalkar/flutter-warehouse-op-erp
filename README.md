@@ -59,6 +59,8 @@ flutter run -d chrome --flavor dev -t lib/ main_dev.dart
   ```Dart
   flutter build apk --flavor prod -t lib/main_prod.dart
 
+ flutter build apk --flavor prod -t lib/main_prod.dart --analyze-size --target-platform  android-arm
+
   flutter build web -t lib/main_dev.dart
   ```
 
