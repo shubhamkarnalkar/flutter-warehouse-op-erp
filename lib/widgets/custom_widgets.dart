@@ -16,3 +16,4 @@ export 'custom_fab.dart';
 export 'orange_card_widget.dart';
 export 'color_seed_button.dart';
 export 'language_button.dart';
+export 'material_tile_widget.dart';

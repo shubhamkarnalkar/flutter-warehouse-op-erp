@@ -21,6 +21,7 @@ class Property with _$Property {
   const factory Property({
     @JsonKey(name: 'PropertyName') required String propertyName,
     @JsonKey(name: 'PropertyValue') required String propertyValue,
+    @JsonKey(name: 'Section') String? section,
   }) = _Property;
 
   factory Property.fromJson(Map<String, dynamic> json) =>

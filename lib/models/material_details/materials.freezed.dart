@@ -199,6 +199,8 @@ mixin _$Property {
   String get propertyName => throw _privateConstructorUsedError;
   @JsonKey(name: 'PropertyValue')
   String get propertyValue => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Section')
+  String? get section => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -213,7 +215,8 @@ abstract class $PropertyCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'PropertyName') String propertyName,
-      @JsonKey(name: 'PropertyValue') String propertyValue});
+      @JsonKey(name: 'PropertyValue') String propertyValue,
+      @JsonKey(name: 'Section') String? section});
 }
 
 /// @nodoc
@@ -231,6 +234,7 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
   $Res call({
     Object? propertyName = null,
     Object? propertyValue = null,
+    Object? section = freezed,
   }) {
     return _then(_value.copyWith(
       propertyName: null == propertyName
@@ -241,6 +245,10 @@ class _$PropertyCopyWithImpl<$Res, $Val extends Property>
           ? _value.propertyValue
           : propertyValue // ignore: cast_nullable_to_non_nullable
               as String,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -255,7 +263,8 @@ abstract class _$$PropertyImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'PropertyName') String propertyName,
-      @JsonKey(name: 'PropertyValue') String propertyValue});
+      @JsonKey(name: 'PropertyValue') String propertyValue,
+      @JsonKey(name: 'Section') String? section});
 }
 
 /// @nodoc
@@ -271,6 +280,7 @@ class __$$PropertyImplCopyWithImpl<$Res>
   $Res call({
     Object? propertyName = null,
     Object? propertyValue = null,
+    Object? section = freezed,
   }) {
     return _then(_$PropertyImpl(
       propertyName: null == propertyName
@@ -281,6 +291,10 @@ class __$$PropertyImplCopyWithImpl<$Res>
           ? _value.propertyValue
           : propertyValue // ignore: cast_nullable_to_non_nullable
               as String,
+      section: freezed == section
+          ? _value.section
+          : section // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -290,7 +304,8 @@ class __$$PropertyImplCopyWithImpl<$Res>
 class _$PropertyImpl implements _Property {
   const _$PropertyImpl(
       {@JsonKey(name: 'PropertyName') required this.propertyName,
-      @JsonKey(name: 'PropertyValue') required this.propertyValue});
+      @JsonKey(name: 'PropertyValue') required this.propertyValue,
+      @JsonKey(name: 'Section') this.section});
 
   factory _$PropertyImpl.fromJson(Map<String, dynamic> json) =>
       _$$PropertyImplFromJson(json);
@@ -301,10 +316,13 @@ class _$PropertyImpl implements _Property {
   @override
   @JsonKey(name: 'PropertyValue')
   final String propertyValue;
+  @override
+  @JsonKey(name: 'Section')
+  final String? section;
 
   @override
   String toString() {
-    return 'Property(propertyName: $propertyName, propertyValue: $propertyValue)';
+    return 'Property(propertyName: $propertyName, propertyValue: $propertyValue, section: $section)';
   }
 
   @override
@@ -315,12 +333,14 @@ class _$PropertyImpl implements _Property {
             (identical(other.propertyName, propertyName) ||
                 other.propertyName == propertyName) &&
             (identical(other.propertyValue, propertyValue) ||
-                other.propertyValue == propertyValue));
+                other.propertyValue == propertyValue) &&
+            (identical(other.section, section) || other.section == section));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, propertyName, propertyValue);
+  int get hashCode =>
+      Object.hash(runtimeType, propertyName, propertyValue, section);
 
   @JsonKey(ignore: true)
   @override
@@ -339,8 +359,8 @@ class _$PropertyImpl implements _Property {
 abstract class _Property implements Property {
   const factory _Property(
       {@JsonKey(name: 'PropertyName') required final String propertyName,
-      @JsonKey(name: 'PropertyValue')
-      required final String propertyValue}) = _$PropertyImpl;
+      @JsonKey(name: 'PropertyValue') required final String propertyValue,
+      @JsonKey(name: 'Section') final String? section}) = _$PropertyImpl;
 
   factory _Property.fromJson(Map<String, dynamic> json) =
       _$PropertyImpl.fromJson;
@@ -351,6 +371,9 @@ abstract class _Property implements Property {
   @override
   @JsonKey(name: 'PropertyValue')
   String get propertyValue;
+  @override
+  @JsonKey(name: 'Section')
+  String? get section;
   @override
   @JsonKey(ignore: true)
   _$$PropertyImplCopyWith<_$PropertyImpl> get copyWith =>

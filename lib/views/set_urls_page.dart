@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
-import 'package:warehouse_erp/models/local_settings_model.dart';
+import 'package:warehouse_erp/models/app_model.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 import 'package:warehouse_erp/widgets/url_selector_button.dart';
 

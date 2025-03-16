@@ -11,6 +11,7 @@ class RouteConstants {
   static const String materialsPage = 'MaterialsPage';
   static const String inventoryPage = 'InventoryPage';
   static const String setUrlsPage = 'SetURLsPage';
+  static const String loginPage = 'LoginPage';
 
 // These are the navigation screens on the home screen
   static const List<NavigationDestination> navigationItems = [

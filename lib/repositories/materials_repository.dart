@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
@@ -21,7 +20,7 @@ class MaterialsRepository {
     try {
       final urls = _auth.read(settingsControllerProvider);
       String matUrl = '';
-      if (urls.materialsUrl.contains('http')) {
+      if (urls.materialsUrl.contains('http') && urls.baseUrl.isNotEmpty) {
         matUrl = urls.materialsUrl.split(urls.baseUrl.toString())[1];
       } else {
         matUrl = urls.materialsUrl;
@@ -41,17 +40,8 @@ class MaterialsRepository {
       } else {
         throw jsonResp.statusMessage.toString();
       }
-    } on DioException catch (e) {
-      switch (e.type) {
-        case DioExceptionType.connectionTimeout:
-          throw 'Connection time out';
-        case DioExceptionType.connectionError:
-          throw 'Something went wrong';
-        default:
-          throw e.message.toString();
-      }
     } catch (e) {
-      throw e.toString();
+      rethrow;
     }
   }
 }

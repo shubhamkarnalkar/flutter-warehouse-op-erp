@@ -18,21 +18,18 @@ class MaterialsModelAdapter extends TypeAdapter<MaterialsModel> {
     };
     return MaterialsModel(
       material: fields[0] as String,
-      property: fields[1] as String,
-      value: fields[2] as String,
+      properties: (fields[1] as List).cast<PropertyModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, MaterialsModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.material)
       ..writeByte(1)
-      ..write(obj.property)
-      ..writeByte(2)
-      ..write(obj.value);
+      ..write(obj.properties);
   }
 
   @override

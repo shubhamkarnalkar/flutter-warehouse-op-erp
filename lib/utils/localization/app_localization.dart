@@ -5,8 +5,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../app.dart';
 import 'ar/ar_translations.dart';
 import 'en_us/en_us_translations.dart';
+import 'german/de_german_trans.dart';
 import 'hi/hi_in_translations.dart';
 import 'ja_ja_translations.dart/ja_ja_translations.dart';
+import 'zhCN/zh_cn_trans.dart';
 
 final currentLangProvider = StateProvider<Language>((ref) {
   final curLoc = ref.watch(settingsControllerProvider).locale;
@@ -27,6 +29,16 @@ class Language {
       Language(1, "🇸🇦", "اَلْعَرَبِيَّةُ", const Locale("ar")),
       Language(2, "🇮🇳", "हिंदी", const Locale("hi")),
       Language(3, "🇯🇵", "日本", const Locale("ja")),
+      Language(4, "🇨🇳", "中文", const Locale("zh")), // Chinese (Simplified)
+      Language(5, "🇩🇪", "Deutsch", const Locale("de")), // German
+      // Language(6, "🇫🇷", "Français", const Locale("fr")), // French
+      // Language(7, "🇪🇸", "Español", const Locale("es")), // Spanish
+      // Language(8, "🇮🇹", "Italiano", const Locale("it")), // Italian
+      // Language(9, "🇷🇺", "Русский", const Locale("ru")), // Russian
+      // Language(10, "🇰🇷", "한국어", const Locale("ko")), // Korean
+      // Language(11, "🇵🇹", "Português", const Locale("pt")), // Portuguese
+      // Language(12, "🇷🇴", "Română", const Locale("ro")), // Romanian
+      // Language(13, "🇷🇸", "Српски", const Locale("sr")), // Serbian
     ];
   }
 }
@@ -46,6 +58,8 @@ class AppLocalization {
     'ja': ja,
     'ar': arAR,
     'hi': hiIn,
+    'zh': zhCN,
+    'de': deDE,
   };
 
   static AppLocalization of() {

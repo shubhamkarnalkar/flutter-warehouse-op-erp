@@ -24,13 +24,18 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       baseUrl: fields[4] as String,
       inventoryUrl: fields[6] as String,
       materialsUrl: fields[5] as String,
+      isLoggedIn: fields[8] == null ? false : fields[8] as bool,
+      signInUrl: fields[7] as String,
+      username: fields[9] as String,
+      password: fields[10] as String,
+      accessToken: fields[11] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.isDark)
       ..writeByte(1)
@@ -44,7 +49,17 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(5)
       ..write(obj.materialsUrl)
       ..writeByte(6)
-      ..write(obj.inventoryUrl);
+      ..write(obj.inventoryUrl)
+      ..writeByte(7)
+      ..write(obj.signInUrl)
+      ..writeByte(8)
+      ..write(obj.isLoggedIn)
+      ..writeByte(9)
+      ..write(obj.username)
+      ..writeByte(10)
+      ..write(obj.password)
+      ..writeByte(11)
+      ..write(obj.accessToken);
   }
 
   @override

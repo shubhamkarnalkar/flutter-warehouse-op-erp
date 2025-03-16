@@ -45,9 +45,6 @@ class _EnterDeliveryPageState extends ConsumerState<EnterDeliveryPage> {
                     borderRadius: BorderRadius.circular(20),
                     shape: BoxShape.rectangle,
                   ),
-                  child: CustomImageView(
-                    imagePath: RivConstants.cartAnimation,
-                  ),
                 ),
               ),
               // Expanded(

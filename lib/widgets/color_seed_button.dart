@@ -31,7 +31,9 @@ enum ColorSeed {
 
   defaultValue(7, 'Default', Pallete.green),
 
-  pink(8, 'Pink', Colors.pink);
+  pink(8, 'Pink', Colors.pink),
+
+  chocolaty(9, 'Chocolaty', Color.fromARGB(255, 173, 74, 38));
 
   const ColorSeed(this.id, this.label, this.color);
   final int id;

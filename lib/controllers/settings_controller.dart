@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:warehouse_erp/models/hive/settings/settings_adapter.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 
-import '../models/local_settings_model.dart';
+import '../models/app_model.dart';
 
 final settingsBoxProvider = Provider((ref) {
   return Hive.box<SettingsModel>(HiveConstants.settingsBox);
@@ -97,6 +97,8 @@ class SettingsController extends StateNotifier<SettingsModel> {
         return state.inventoryUrl;
       case 2:
         return state.materialsUrl;
+      case 3:
+        return state.signInUrl;
       default:
         return '';
     }
@@ -116,8 +118,19 @@ class SettingsController extends StateNotifier<SettingsModel> {
         await _settingsBox.put(1, state.copyWith(materialsUrl: value));
         state = state.copyWith(materialsUrl: value);
         break;
+      case UrlsApp.signIn:
+        await _settingsBox.put(1, state.copyWith(signInUrl: value));
+        state = state.copyWith(signInUrl: value);
+        break;
 
       default:
     }
+  }
+
+  Future<void> setAuth(String usrname, String pwd, String accTok) async {
+    await _settingsBox.put(1,
+        state.copyWith(username: usrname, password: pwd, accessToken: accTok));
+    state =
+        state.copyWith(password: pwd, username: usrname, accessToken: accTok);
   }
 }

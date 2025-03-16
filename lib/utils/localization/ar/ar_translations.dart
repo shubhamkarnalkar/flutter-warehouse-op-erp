@@ -1,53 +1,55 @@
 import 'package:warehouse_erp/utils/localization/lang_text_constants.dart';
 
 final Map<String, String> arAR = {
-  LangTextConstants.msg_check_delivery_data:
-      "تحقق من بيانات التسليم في تاو", // Check delivery data in Tao
-  //enter delivery page
-  LangTextConstants.msg_enter_delivery_no:
-      "أدخل رقم التسليم", // Enter Delivery No
-  LangTextConstants.lbl_enter_delivery:
-      "اختر - أدخل التسليم", // Pick - Enter Delivery
-  LangTextConstants.lbl_cases: "الحالات", // Cases
-  LangTextConstants.lbl_line_item: "بند البند", // Line Item
-  LangTextConstants.lbl_quantity_picked: "الكمية المختارة", // Quantity Picked
-  LangTextConstants.lbl_enter_case_count:
-      "أدخل عدد الحالات", // Enter case count
-  LangTextConstants.msg_line_item_no_0000010_sku:
-      "رقم البند: 0000010\nرمز العنصر: 10058830\nروث أزرق 20/60 ك्यू دي إس  UIWUIIUOU إس دي جي تي واي يو إتش أوه", // Line item No.: 0000010\nSKU: 10058830\nROTH BLUE 20/60 QDS  UIWUIIUOU SDGTYUHUHOU (Consider translating product names if needed)
-  LangTextConstants.lbl_scan_pallet_sscc:
-      "امسح البليت إس إس سي سي", // Scan Pallet SSCC
-  LangTextConstants.lbl_f1: "F1", // F1
-  LangTextConstants.lbl_full_pallet: "بليت كامل", // Full Pallet
-  LangTextConstants.lbl_pick_items: "اختر العناصر", // Pick Items
-  LangTextConstants.lbl_com_id: "معرف الخفاش", // com ID
-  LangTextConstants.lbl_login: "تسجيل الدخول", // Login
-  LangTextConstants.lbl_password: "كلمة المرور", // Password
-  LangTextConstants.lbl_welcome_back: "مرحبا بعودتك\n!", // Welcome\nBack!
-  LangTextConstants.lbl_ok: "موافق", // OK
-  LangTextConstants.lbl_app_navigation: "تنقل التطبيق", // App Navigation
-  LangTextConstants.msg_9_inactive_due_to:
-      "9 غير نشط بسبب عدم الاختيار الكامل", // 9 Inactive due to not fully picked
+  LangTextConstants.msg_check_delivery_data: "تحقق من بيانات التسليم في Tao",
+  // الدخول إلى صفحة التسليم
+  LangTextConstants.msg_enter_delivery_no: "أدخل رقم التسليم",
+  LangTextConstants.lbl_enter_delivery: "اختيار - إدخال التسليم",
+  LangTextConstants.lbl_line_item: "عنصر السطر",
+  LangTextConstants.lbl_quantity_picked: "الكمية المختارة",
+  LangTextConstants.lbl_enter_case_count: "أدخل عدد الحالات",
+  LangTextConstants.lbl_scan_pallet_sscc: "مسح SSCC للبلاط",
+  LangTextConstants.lbl_full_pallet: "بلاط كامل",
+  LangTextConstants.lbl_pick_items: "اختيار العناصر",
+  LangTextConstants.lbl_com_id: "معرف المستخدم",
+  LangTextConstants.lbl_login: "تسجيل الدخول",
+  LangTextConstants.lbl_password: "كلمة المرور",
+  LangTextConstants.lbl_welcome_back: "أهلاً وسهلاً\nبعودتك!",
+  LangTextConstants.lbl_ok: "موافق",
+  LangTextConstants.lbl_app_navigation: "تنقل التطبيق",
   LangTextConstants.msg_check_your_app_s:
-      "تحقق من واجهة مستخدم التطبيق الخاص بك من شاشات العرض التوضيحية أدناه لتطبيقك.", // Check your app's UI from the below demo screens of your app.
-  LangTextConstants.msg_network_err: "خطأ في الشبكة", // Network Error
+      "تحقق من واجهة المستخدم لتطبيقك من خلال شاشات العرض أدناه.",
+  LangTextConstants.msg_network_err: "خطأ في الشبكة",
 
-  LangTextConstants.msg_something_went_wrong:
-      "حدث خطأ ما!", // Something Went Wrong!
-  LangTextConstants.lbl_pick: "اختر", // Pick
-  LangTextConstants.lbl_loading: "جار التحميل", // Loading
-  LangTextConstants.lbl_picking_options: "خيارات الاختيار", // Picking Options
+  LangTextConstants.msg_something_went_wrong: "حدث خطأ ما!",
+  LangTextConstants.lbl_pick: "اختيار",
+  LangTextConstants.lbl_loading: "جاري التحميل",
+  LangTextConstants.lbl_picking_options: "خيارات الاختيار",
   LangTextConstants.lbl_full_pallet_picking_pick_pallet:
-      "اختيار البليت الكامل - اختر البليت", // Full Pallet Picking - Pick Pallet
-  LangTextConstants.lbl_line_item_no: "رقم البند:", // Line item No.:
-  LangTextConstants.lbl_SKU: "رمز العنصر:", // SKU:
-  LangTextConstants.lbl_settings: "إعدادات", // Settings
-  LangTextConstants.lbl_dark_theme: "الوضع المظلم", // Dark Theme
-  LangTextConstants.lbl_text_scale: "قياس النص", // Text Scale
-  LangTextConstants.lbl_language: "اللغة", // Language
-  LangTextConstants.lbl_back: "عودة", // Back
-  LangTextConstants.lbl_cancel: "إلغاء", // Cancel
-  LangTextConstants.lbl_transactions: "المعاملات", // Transactions
-  LangTextConstants.lbl_continious_barcode_scanning: "المسح الضوئي المس",
+      "اختيار بلاط كامل - اختر البلاط",
+  LangTextConstants.lbl_line_item_no: "رقم عنصر السطر:",
+  LangTextConstants.lbl_SKU: "SKU:",
+  LangTextConstants.lbl_settings: "الإعدادات",
+  LangTextConstants.lbl_dark_theme: "السمة الداكنة",
+  LangTextConstants.lbl_text_scale: "مقياس النص",
+  LangTextConstants.lbl_language: "اللغة",
+  LangTextConstants.lbl_back: "رجوع",
+  LangTextConstants.lbl_cancel: "إلغاء",
+  LangTextConstants.lbl_transactions: "المعاملات",
+  LangTextConstants.lbl_continious_barcode_scanning:
+      "مسح الرموز الشريطية المستمر",
   LangTextConstants.lbl_color: "اللون",
+  LangTextConstants.lbl_save: "حفظ",
+  LangTextConstants.lbl_edit: "تعديل",
+  LangTextConstants.lbl_materials: "المواد",
+  LangTextConstants.lbl_inventory: "المخزون",
+  LangTextConstants.lbl_set_urls: "إعداد عناوين URL للتطبيق",
+  LangTextConstants.msg_Fetchingdataforyou: "جاري جلب البيانات لك",
+  LangTextConstants.msg_Savingdata: "جاري حفظ البيانات",
+  LangTextConstants.msg_LoginFailedNeedtologinagain:
+      "فشل تسجيل الدخول. بحاجة لتسجيل الدخول مرة أخرى",
+  LangTextConstants.msg_Invalidusernameorpassword:
+      "اسم المستخدم أو كلمة المرور غير صحيحة",
+  LangTextConstants.msg_Nodatafound: "لم يتم العثور على بيانات",
+  LangTextConstants.msg_url_not_set: "لم يتم تعيين URL",
 };

@@ -5,24 +5,19 @@ final Map<String, String> enUs = {
   //enter delivery page
   LangTextConstants.msg_enter_delivery_no: "Enter Delivery No",
   LangTextConstants.lbl_enter_delivery: "Pick - Enter Delivery",
-  LangTextConstants.lbl_cases: "Cases",
   LangTextConstants.lbl_line_item: "Line Item ",
   LangTextConstants.lbl_quantity_picked: "Quantity Picked",
   LangTextConstants.lbl_enter_case_count: "Enter case count",
-  LangTextConstants.msg_line_item_no_0000010_sku:
-      "Line item No.: 0000010\nSKU: 10058830\nROTH BLUE 20/60 QDS  UIWUIIUOU SDGTYUHUHOU",
   LangTextConstants.lbl_scan_pallet_sscc:
       "Scan Pallet SSCC                        ",
-  LangTextConstants.lbl_f1: "F1",
   LangTextConstants.lbl_full_pallet: "Full Pallet",
   LangTextConstants.lbl_pick_items: "Pick Items",
-  LangTextConstants.lbl_com_id: "com ID",
+  LangTextConstants.lbl_com_id: "User ID",
   LangTextConstants.lbl_login: "Login",
   LangTextConstants.lbl_password: "Password",
   LangTextConstants.lbl_welcome_back: "Welcome\nBack!",
   LangTextConstants.lbl_ok: "OK",
   LangTextConstants.lbl_app_navigation: "App Navigation",
-  LangTextConstants.msg_9_inactive_due_to: "9 Inactive due to not fully picked",
   LangTextConstants.msg_check_your_app_s:
       "Check your app's UI from the below demo screens of your app.",
   LangTextConstants.msg_network_err: "Network Error",
@@ -50,4 +45,12 @@ final Map<String, String> enUs = {
   LangTextConstants.lbl_materials: "Materials",
   LangTextConstants.lbl_inventory: "Inventory",
   LangTextConstants.lbl_set_urls: "Set URLs for App",
+  LangTextConstants.msg_Fetchingdataforyou: "Fetching data for you",
+  LangTextConstants.msg_Savingdata: "Saving data",
+  LangTextConstants.msg_LoginFailedNeedtologinagain:
+      "Login Failed Need to login again",
+  LangTextConstants.msg_Invalidusernameorpassword:
+      "Invalid username or password",
+  LangTextConstants.msg_Nodatafound: "No data found",
+  LangTextConstants.msg_url_not_set: "Url is not set",
 };

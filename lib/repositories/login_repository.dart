@@ -13,20 +13,22 @@ class LoginRepository {
     required final Dio dio,
   }) : _dio = dio;
 
-  FutureEither<int?> login(String authBasic) async {
+  FutureEither<String?> login(String authBasic, String loginURL) async {
     late final Response resp;
     try {
-      if (authBasic.isNotEmpty) {
+      if (authBasic.isNotEmpty && loginURL.contains('http')) {
         final Map<String, String> header = {'Authorization': authBasic};
-        resp = await _dio.get(
-          loginMetaDataEndpoint,
+        resp = await _dio.post(
+          loginURL,
           options: Options(headers: header),
         );
         if (resp.statusCode == 201 || resp.statusCode == 200) {
-          return right(200);
+          return right(resp.data['access_token']);
         } else {
           throw resp.statusMessage.toString();
         }
+      } else {
+        throw 'Invalid Input';
       }
     } on DioException catch (e) {
       switch (e.type) {
@@ -40,6 +42,5 @@ class LoginRepository {
     } catch (e) {
       return left(Failure(e.toString()));
     }
-    return right(400);
   }
 }

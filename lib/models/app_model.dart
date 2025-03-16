@@ -1,15 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
-class LocalSettingsModel extends Equatable {
-  final ThemeMode themeMode = ThemeMode.system;
-  final double textScaleFactor = 1.0;
-  final Locale locale = const Locale('en');
-  @override
-  List<Object?> get props => [];
-}
-
-enum UrlsApp { base, materials, inventory }
+enum UrlsApp { base, materials, inventory, signIn }
 
 class UrlsAppModel {
   final int id;
@@ -24,6 +13,7 @@ class UrlsAppModel {
       UrlsAppModel(0, UrlsApp.base, 'Base URL', ''),
       UrlsAppModel(1, UrlsApp.inventory, 'Inventory', ''),
       UrlsAppModel(2, UrlsApp.materials, 'Materials', ''),
+      UrlsAppModel(3, UrlsApp.signIn, 'SignIn', ''),
       // UrlsAppModel(3, ),
     ];
   }

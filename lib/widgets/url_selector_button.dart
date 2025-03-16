@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:warehouse_erp/models/local_settings_model.dart';
+import 'package:warehouse_erp/models/app_model.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 
 class URLSelectorChangeButton extends ConsumerWidget {

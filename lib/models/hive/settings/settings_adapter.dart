@@ -27,6 +27,21 @@ class SettingsModel extends HiveObject with EquatableMixin {
   @HiveField(6)
   late String inventoryUrl;
 
+  @HiveField(7)
+  late String signInUrl;
+
+  @HiveField(8, defaultValue: false)
+  late bool isLoggedIn;
+
+  @HiveField(9)
+  late String username;
+
+  @HiveField(10)
+  late String password;
+
+  @HiveField(11)
+  late String accessToken;
+
   SettingsModel({
     this.isDark = true,
     this.textScaleFactor = 1.0,
@@ -35,14 +50,19 @@ class SettingsModel extends HiveObject with EquatableMixin {
     this.baseUrl = '',
     this.inventoryUrl = '',
     this.materialsUrl = '',
+    this.isLoggedIn = false,
+    this.signInUrl = '',
+    this.username = '',
+    this.password = '',
+    this.accessToken = '',
   });
 
   @override
   String toString() =>
-      'PdfFiles(name: $isDark, path: $textScaleFactor, isPinned: $locale)';
+      'SettingsModel(name: $isDark, path: $textScaleFactor, isPinned: $locale, isLoggedin: $isLoggedIn)';
 
   @override
-  List<Object?> get props => [isDark, textScaleFactor, locale];
+  List<Object?> get props => [isDark, textScaleFactor, locale, isLoggedIn];
 
   SettingsModel copyWith({
     bool? isDark,
@@ -52,6 +72,11 @@ class SettingsModel extends HiveObject with EquatableMixin {
     String? baseUrl,
     String? inventoryUrl,
     String? materialsUrl,
+    String? signInUrl,
+    bool isLoggedIn = false,
+    String? username,
+    String? password,
+    String? accessToken,
   }) {
     return SettingsModel(
       isDark: isDark ?? this.isDark,
@@ -61,6 +86,11 @@ class SettingsModel extends HiveObject with EquatableMixin {
       baseUrl: baseUrl ?? this.baseUrl,
       materialsUrl: materialsUrl ?? this.materialsUrl,
       inventoryUrl: inventoryUrl ?? this.inventoryUrl,
+      signInUrl: signInUrl ?? this.signInUrl,
+      isLoggedIn: isLoggedIn,
+      username: username ?? this.username,
+      password: password ?? this.password,
+      accessToken: accessToken ?? this.accessToken,
     );
   }
 }

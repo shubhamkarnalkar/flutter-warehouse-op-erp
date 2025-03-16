@@ -5,7 +5,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      // builder: (context, state) => const LoginPage(),
+      name: RouteConstants.home,
       builder: (context, state) => const Home(),
       routes: [
         _setURLSPageRoute,

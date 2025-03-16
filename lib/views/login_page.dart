@@ -1,35 +1,63 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
 import 'package:warehouse_erp/utils/utils.dart';
+import 'package:warehouse_erp/views/home_page.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:neopop/neopop.dart';
-import '../controllers/login/login_page_notifier.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
+import '../controllers/auth/auth_controller.dart';
+
+class LoginPage extends StatefulHookConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  LoginPageState createState() => LoginPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginPageState();
 }
 
-class LoginPageState extends ConsumerState<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    // ref.watch(themeProvider);
+    final usridContr = useTextEditingController();
+    final pwdContr = useTextEditingController();
     final theme = Theme.of(context);
-    final pageState = ref.watch(loginPageNotifier);
-    final ispwdVisible = ref.watch(
-      loginPageNotifier.select((value) => value.isPwdVisible),
-    );
     final langNow = ref.watch(currentLangProvider);
-    // ignore: prefer_const_declarations
-    final bool isButtonActive = true;
-    // ((pageState.comIDTextController?.text.isNotEmpty ?? false) &&
-    //     (pageState.loginPagePasswordController?.text.isNotEmpty ?? false));
+    final ispwdVisible = useState(false);
+    final isLoggedIn = useState(false);
+    // Handle login logic
+    void handleLogin() async {
+      // Replace this with your actual login logic (e.g., an API call)
+      if (usridContr.text.isEmpty || pwdContr.text.isEmpty) {
+        // Show an error message if login fails
+        GlobalMessenger.showSnackBarMessage(
+            context: context,
+            error: LangTextConstants.msg_Invalidusernameorpassword.tr);
+      } else {
+        // On successful login, set the provider to true
+        await ref
+            .read(authControllerProvider.notifier)
+            .login(usridContr.text.trim(), pwdContr.text.trim())
+            .whenComplete(() => isLoggedIn.value =
+                ref.watch(authControllerProvider).value ==
+                        AuthState.authenticated
+                    ? true
+                    : false);
+        if (isLoggedIn.value) {
+          Future.microtask(() {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Home()),
+            );
+          });
+        }
+      }
+    }
+
+    // Navigate to HomePage if the user is logged in
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -39,19 +67,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text('hey ther'),
-                Align(
-                  alignment: AlignmentDirectional.topEnd,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        companyLogo(),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: SvgPicture.asset(
@@ -91,7 +106,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                           ),
                           hintText: LangTextConstants.lbl_com_id.tr,
                         ),
-                        controller: pageState.comIDTextController,
+                        controller: usridContr,
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
@@ -100,11 +115,9 @@ class LoginPageState extends ConsumerState<LoginPage> {
                           hintText: LangTextConstants.lbl_password.tr,
                           suffixIcon: GestureDetector(
                             onTap: () {
-                              ref
-                                  .read(loginPageNotifier.notifier)
-                                  .changeVisibility();
+                              ispwdVisible.value = !ispwdVisible.value;
                             },
-                            child: ispwdVisible
+                            child: ispwdVisible.value
                                 ? const FaIcon(
                                     Icons.remove_red_eye,
                                     size: 30,
@@ -116,34 +129,26 @@ class LoginPageState extends ConsumerState<LoginPage> {
                           ),
                         ),
                         // obscureText: !ispwdVisible,
-                        obscureText: !ispwdVisible,
-                        controller: pageState.loginPagePasswordController,
+                        obscureText: !ispwdVisible.value,
+                        controller: pwdContr,
                       ),
                       const SizedBox(height: 20),
-                      // CustomElevatedButton(
-                      //   text: LangTextConstants.lbl_login.tr,
-                      //   onPressed: () {
-                      //     // ref.read(loginPageNotifier.notifier).login(context);
-                      //     context.goNamed(RouteConstants.home);
-                      //   },
-                      // ),
                       SizedBox(
                         width: 300,
                         child: NeoPopTiltedButton(
                           isFloating: true,
-                          // enabled: isButtonActive,
+                          enabled: ref.watch(authControllerProvider).isLoading
+                              ? false
+                              : true,
                           onTapUp: () {
-                            isButtonActive
-                                ? context.goNamed(RouteConstants.home)
-                                // ignore: dead_code
-                                : null;
+                            ref.watch(authControllerProvider).isLoading
+                                ? null
+                                : handleLogin();
                           },
                           decoration: NeoPopTiltedButtonDecoration(
                             color: theme.colorScheme.primary,
-                            // plunkColor: Color.fromRGBO(255, 235, 52, 1),
                             plunkColor: theme.colorScheme.primary,
                             shadowColor: const Color.fromRGBO(36, 36, 36, 1),
-                            // shadowColor: theme.colorScheme.inversePrimary,
                             showShimmer: true,
                           ),
                           child: Padding(
@@ -163,7 +168,6 @@ class LoginPageState extends ConsumerState<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 5),
-                      // Text(ispwdVisible.toString()),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -177,6 +181,16 @@ class LoginPageState extends ConsumerState<LoginPage> {
                           ),
                         ],
                       ),
+                      switch (ref.watch(authControllerProvider)) {
+                        AsyncData(value: final _) => const Text(''),
+                        AsyncError(:final error) => Text(
+                            GlobalMessenger.messageFormatter(error, true)[1],
+                            style: theme.textTheme.bodyLarge!
+                                .copyWith(color: Colors.red),
+                            maxLines: 1,
+                          ),
+                        _ => const Text(''),
+                      },
                     ],
                   ),
                 ),

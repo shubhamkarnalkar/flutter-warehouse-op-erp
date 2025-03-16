@@ -4,8 +4,11 @@ const String loginMetaDataEndpoint = '';
 
 class RivConstants {
   static const animationPath = 'assets/animations';
-  static String cartAnimation = '$animationPath/CartAnimation.riv';
-  static String earthAnimation = '$animationPath/EarthAnimation.riv';
+}
+
+class LottieConsts {
+  static const _rootLottie = 'assets/lottie';
+  static const spaceMan = '$_rootLottie/space-man.lottie';
 }
 
 class ImageConstant {

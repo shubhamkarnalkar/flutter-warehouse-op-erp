@@ -1,9 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/models/hive/materials/material_model.dart';
-import 'package:warehouse_erp/models/material_details/materials.dart';
-import 'package:warehouse_erp/repositories/materials_repository.dart';
+import 'package:warehouse_erp/repositories/materials_repository.dart' as mm;
 import 'package:warehouse_erp/utils/utils.dart';
+
+import '../models/material_details/materials.dart';
 
 final materialsBoxProvider = Provider((ref) {
   return Hive.box<MaterialsModel>(HiveConstants.materialDirectory);
@@ -24,45 +25,61 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
   }
 
   List<MaterialsModel> _getMaterialsFromLocal() {
-    final List<MaterialsModel> vals = _materialsBox.values.toList();
-    final List<MaterialsModel> finVals = [];
-    if (vals.isNotEmpty) {
-      vals.toSet().toList();
-      for (MaterialsModel element in vals) {
-        if (!finVals.contains(element)) {
-          finVals.add(element);
-        }
-      }
-    }
-    return finVals.isNotEmpty ? finVals : [];
+    return _materialsBox.values.toList();
   }
 
+  /// This method is used to get the materials from the API call where
+  /// the url value of the fetching API is present at the settings/set_urls.
+  /// After fetching the material details from the API, the material values
+  /// are stored in the local database.
+  /// After opening the application,
+  /// the values will be fetched by [MaterialsController] as the state
+  /// for this Async Provider is given by the current values in the local storage
   Future<void> fetchMaterials() async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      //TODO: lang
       ref
           .read(loadingMessageProvider.notifier)
-          .update((state) => 'Fetching data for you');
-      final resp = await ref.read(materialsReposProvider).getAll();
+          .update((state) => LangTextConstants.msg_Fetchingdataforyou.tr);
+      final resp = await ref.read(mm.materialsReposProvider).getAll();
       await _saveMaterials(resp);
       return _getMaterialsFromLocal();
     });
   }
 
+  /// [_saveMaterials] method is used for saving the materials in the hive local
+  /// storage,
   Future<void> _saveMaterials(List<Material> resp) async {
-    //TODO: lang
-    ref.read(loadingMessageProvider.notifier).update((state) => 'Saving data');
+    ref
+        .read(loadingMessageProvider.notifier)
+        .update((state) => LangTextConstants.msg_Fetchingdataforyou.tr);
     for (final matnr in resp) {
-      final material = matnr.material;
-      for (final prp in matnr.properties) {
-        await _materialsBox.add(
-          MaterialsModel(
-              material: material,
-              property: prp.propertyName,
-              value: prp.propertyValue),
+      MaterialsModel mt;
+      final exist = _materialsBox.get(matnr.material);
+      if (exist != null) {
+        mt = exist;
+        for (final prpt in matnr.properties) {
+          final PropertyModel prp = PropertyModel(
+              propertyName: prpt.propertyName,
+              propertyValue: prpt.propertyValue,
+              section: prpt.section ?? '');
+          mt.properties.add(prp);
+        }
+      } else {
+        mt = MaterialsModel(
+          material: matnr.material,
+          properties: [],
         );
+        for (final prpt in matnr.properties) {
+          final PropertyModel prp = PropertyModel(
+              propertyName: prpt.propertyName,
+              propertyValue: prpt.propertyValue,
+              section: prpt.section ?? '');
+          mt.properties.add(prp);
+        }
       }
+      mt.properties.toSet().toList();
+      await _materialsBox.put(matnr.material, mt);
     }
   }
 }

@@ -24,12 +24,14 @@ _$PropertyImpl _$$PropertyImplFromJson(Map<String, dynamic> json) =>
     _$PropertyImpl(
       propertyName: json['PropertyName'] as String,
       propertyValue: json['PropertyValue'] as String,
+      section: json['Section'] as String?,
     );
 
 Map<String, dynamic> _$$PropertyImplToJson(_$PropertyImpl instance) =>
     <String, dynamic>{
       'PropertyName': instance.propertyName,
       'PropertyValue': instance.propertyValue,
+      'Section': instance.section,
     };
 
 _$MaterialsImpl _$$MaterialsImplFromJson(Map<String, dynamic> json) =>
