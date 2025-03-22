@@ -26,7 +26,18 @@ class _LoginPageState extends ConsumerState<LoginPage> {
     final theme = Theme.of(context);
     final langNow = ref.watch(currentLangProvider);
     final ispwdVisible = useState(false);
-    final isLoggedIn = useState(false);
+    final inst = ref.watch(authControllerProvider);
+    // Navigate to HomePage if the user is logged in
+
+    if (ref.watch(settingsControllerProvider).isLoggedIn) {
+      Future.microtask(() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Home()),
+        );
+      });
+    }
+
     // Handle login logic
     void handleLogin() async {
       // Replace this with your actual login logic (e.g., an API call)
@@ -39,24 +50,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
         // On successful login, set the provider to true
         await ref
             .read(authControllerProvider.notifier)
-            .login(usridContr.text.trim(), pwdContr.text.trim())
-            .whenComplete(() => isLoggedIn.value =
-                ref.watch(authControllerProvider).value ==
-                        AuthState.authenticated
-                    ? true
-                    : false);
-        if (isLoggedIn.value) {
-          Future.microtask(() {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const Home()),
-            );
-          });
-        }
+            .login(usridContr.text.trim(), pwdContr.text.trim());
       }
     }
-
-    // Navigate to HomePage if the user is logged in
 
     return SafeArea(
       child: Scaffold(
@@ -137,13 +133,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                         width: 300,
                         child: NeoPopTiltedButton(
                           isFloating: true,
-                          enabled: ref.watch(authControllerProvider).isLoading
-                              ? false
-                              : true,
+                          enabled: inst.isLoading ? false : true,
                           onTapUp: () {
-                            ref.watch(authControllerProvider).isLoading
-                                ? null
-                                : handleLogin();
+                            inst.isLoading ? null : handleLogin();
                           },
                           decoration: NeoPopTiltedButtonDecoration(
                             color: theme.colorScheme.primary,
@@ -157,12 +149,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               vertical: 15,
                             ),
                             child: Center(
-                              child: Text(
-                                LangTextConstants.lbl_login.tr,
-                                style: theme.textTheme.bodyLarge!.copyWith(
-                                  color: Colors.black,
-                                ),
-                              ),
+                              child: inst.isLoading
+                                  ? const CircularProgressIndicator.adaptive()
+                                  : Text(
+                                      LangTextConstants.lbl_login.tr,
+                                      style:
+                                          theme.textTheme.bodyLarge!.copyWith(
+                                        color: Colors.black,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -181,7 +176,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           ),
                         ],
                       ),
-                      switch (ref.watch(authControllerProvider)) {
+                      switch (inst) {
                         AsyncData(value: final _) => const Text(''),
                         AsyncError(:final error) => Text(
                             GlobalMessenger.messageFormatter(error, true)[1],

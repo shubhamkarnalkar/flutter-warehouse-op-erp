@@ -10,11 +10,14 @@ class ErrorPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final errorList = GlobalMessenger.messageFormatter(
+        obj.runtimeType == DioException ? obj as DioException : Object());
+
     return SizedBox(
       width: double.maxFinite,
       height: double.maxFinite,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(20.0),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -27,50 +30,47 @@ class ErrorPage extends ConsumerWidget {
                   color: Colors.redAccent,
                 ),
               ),
-              obj.runtimeType == String
-                  ? Text(
-                      obj as String,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    )
-                  : Column(
-                      children: [
-                        Text(
-                          GlobalMessenger.messageFormatter(
-                              obj.runtimeType == DioException
-                                  ? obj as DioException
-                                  : Object())[1],
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                        switch (GlobalMessenger.messageFormatter(
-                                obj.runtimeType == Object
-                                    ? obj as DioException
-                                    : Object())[0]
-                            .toString()) {
-                          '401' => TextButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ),
-                              ),
-                              child: Text(GlobalMessenger.messageFormatter(
-                                obj.runtimeType == Object
-                                    ? obj as DioException
-                                    : Object(),
-                              )[1]),
-                            ),
-                          String() => TextButton(
-                              onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
-                                ),
-                              ),
-                              child: const Text('Go To Login Page'),
-                            ),
-                        }
-                      ],
+              if (obj.runtimeType == String)
+                Text(
+                  obj as String,
+                  style: Theme.of(context).textTheme.headlineSmall,
+                )
+              else if (errorList[0].toString().contains('404'))
+                Column(
+                  children: [
+                    Text(
+                      errorList[1].toString(),
+                      maxLines: 2,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
                     ),
+                  ],
+                )
+              else
+                Column(
+                  children: [
+                    Text(
+                      errorList[1],
+                      maxLines: 2,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    switch (errorList[0].toString()) {
+                      String() => errorList[0].toString().contains('401')
+                          ? TextButton(
+                              onPressed: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const LoginPage(),
+                                ),
+                              ),
+                              // TODO: lang
+                              child: const Text('Go To Login Page'),
+                            )
+                          : const Text(''),
+                    }
+                  ],
+                ),
             ],
           ),
         ),

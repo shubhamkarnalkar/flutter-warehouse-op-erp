@@ -127,10 +127,28 @@ class SettingsController extends StateNotifier<SettingsModel> {
     }
   }
 
-  Future<void> setAuth(String usrname, String pwd, String accTok) async {
-    await _settingsBox.put(1,
-        state.copyWith(username: usrname, password: pwd, accessToken: accTok));
-    state =
-        state.copyWith(password: pwd, username: usrname, accessToken: accTok);
+  Future<void> setAuth(
+      String usrname, String pwd, String accTok, bool isLoggedin) async {
+    await _settingsBox.put(
+      1,
+      state.copyWith(
+          username: usrname,
+          password: pwd,
+          accessToken: accTok,
+          isLoggedIn: isLoggedin),
+    );
+    state = state.copyWith(
+        password: pwd,
+        username: usrname,
+        accessToken: accTok,
+        isLoggedIn: isLoggedin);
+  }
+
+  Future<void> setLoggedIn(bool isLog) async {
+    await _settingsBox.put(
+      1,
+      state.copyWith(isLoggedIn: isLog),
+    );
+    state = state.copyWith(isLoggedIn: isLog);
   }
 }

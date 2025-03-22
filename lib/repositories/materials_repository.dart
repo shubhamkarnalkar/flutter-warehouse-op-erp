@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:warehouse_erp/controllers/auth/auth_controller.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 
@@ -27,7 +28,8 @@ class MaterialsRepository {
       }
       final jsonResp = await _dio.get(
         matUrl,
-        // options: Options(headers: _auth.read(authHeaderControllerProvider)),
+        options: Options(
+            headers: _auth.read(authControllerProvider.notifier).getHeader()),
       );
 
       if (jsonResp.statusCode == 201 || jsonResp.statusCode == 200) {

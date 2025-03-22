@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/models/hive/materials/material_model.dart';
@@ -78,8 +79,11 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
           mt.properties.add(prp);
         }
       }
-      mt.properties.toSet().toList();
-      await _materialsBox.put(matnr.material, mt);
+      await _materialsBox.put(matnr.material, mt).catchError((err) {
+        debugPrint('Error: $err'); // Prints 401.
+      }, test: (error) {
+        return error is int && error >= 400;
+      });
     }
   }
 }

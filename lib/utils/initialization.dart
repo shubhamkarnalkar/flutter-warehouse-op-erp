@@ -9,6 +9,7 @@ Future<void> initialize() async {
   Hive.registerAdapter(SettingsModelAdapter());
   Hive.registerAdapter(ScannedBarcodesModelAdapter());
   Hive.registerAdapter(MaterialsModelAdapter());
+  Hive.registerAdapter(PropertyModelAdapter());
   await Hive.openBox<SettingsModel>(HiveConstants.settingsBox);
   await Hive.openBox<ScannedBarcodesModel>(HiveConstants.docBarcodesBox);
   await Hive.openBox<MaterialsModel>(HiveConstants.materialDirectory);

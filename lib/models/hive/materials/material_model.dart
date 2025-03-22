@@ -14,12 +14,20 @@ class MaterialsModel extends HiveObject with EquatableMixin {
   List<Object?> get props => [];
 }
 
+@HiveType(typeId: 5) // Add a unique typeId for PropertyModel.
 class PropertyModel {
+  @HiveField(0)
   final String propertyName;
+
+  @HiveField(1)
   final String propertyValue;
+
+  @HiveField(2)
   final String section;
-  PropertyModel(
-      {required this.propertyName,
-      required this.propertyValue,
-      required this.section});
+
+  PropertyModel({
+    required this.propertyName,
+    required this.propertyValue,
+    required this.section,
+  });
 }

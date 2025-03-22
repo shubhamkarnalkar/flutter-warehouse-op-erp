@@ -28,8 +28,17 @@ class GlobalMessenger {
           return !isLoginPage
               ? ['401', LangTextConstants.msg_LoginFailedNeedtologinagain.tr]
               : ['401', LangTextConstants.msg_Invalidusernameorpassword.tr];
+        case DioExceptionType.connectionTimeout:
+          // TODO: lang
+          return [
+            e.response?.statusCode.toString() ?? '400',
+            'Connection time out'
+          ];
         default:
-          return ['1', LangTextConstants.msg_something_went_wrong.tr];
+          return [
+            e.response?.statusCode.toString() ?? '400',
+            e.message.toString()
+          ];
       }
     } catch (e) {
       if (e.toString().contains('401')) {
@@ -37,7 +46,17 @@ class GlobalMessenger {
             ? ['401', LangTextConstants.msg_LoginFailedNeedtologinagain.tr]
             : ['401', LangTextConstants.msg_Invalidusernameorpassword.tr];
       } else {
-        return ['0', LangTextConstants.msg_something_went_wrong.tr];
+        switch (e) {
+          case DioExceptionType.badResponse:
+            return !isLoginPage
+                ? ['401', LangTextConstants.msg_LoginFailedNeedtologinagain.tr]
+                : ['401', LangTextConstants.msg_Invalidusernameorpassword.tr];
+          case DioExceptionType.connectionTimeout:
+            // TODO: lang
+            return ['400', 'Connection time out'];
+          default:
+            return ['0', LangTextConstants.msg_something_went_wrong.tr];
+        }
       }
     }
   }

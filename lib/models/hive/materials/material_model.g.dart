@@ -42,3 +42,43 @@ class MaterialsModelAdapter extends TypeAdapter<MaterialsModel> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+class PropertyModelAdapter extends TypeAdapter<PropertyModel> {
+  @override
+  final int typeId = 5;
+
+  @override
+  PropertyModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return PropertyModel(
+      propertyName: fields[0] as String,
+      propertyValue: fields[1] as String,
+      section: fields[2] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, PropertyModel obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.propertyName)
+      ..writeByte(1)
+      ..write(obj.propertyValue)
+      ..writeByte(2)
+      ..write(obj.section);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PropertyModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

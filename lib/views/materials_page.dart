@@ -21,6 +21,7 @@ class _MaterialsPageState extends ConsumerState<MaterialsPage> {
       mobile: Scaffold(
         appBar: CustomAppBar(
           title: LangTextConstants.lbl_materials.tr,
+          hasBackButton: false,
         ),
         body: ref.watch(settingsControllerProvider).materialsUrl.isEmpty
             ? ErrorPage(
