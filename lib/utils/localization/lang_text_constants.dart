@@ -50,4 +50,5 @@ class LangTextConstants {
   static String msg_Invalidusernameorpassword = 'Invalidusernameorpassword';
   static String msg_Nodatafound = 'Nodatafound';
   static String msg_url_not_set = 'url_not_set';
+  static String lbl_all = 'lbl_all';
 }

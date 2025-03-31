@@ -34,11 +34,25 @@ class MaterialsRepository {
 
       if (jsonResp.statusCode == 201 || jsonResp.statusCode == 200) {
         final mats = jsonResp.data['Materials'];
-        List<Material> materials = (mats as List)
-            .map((matnr) => Material.fromJson(matnr as Map<String, dynamic>))
-            .toList();
+        final matList = (mats as List);
+        // matList.removeRange(5, 40);
+        List<Material> materials = [];
+        try {
+          materials = matList
+              .map((matnr) => Material.fromJson(matnr as Map<String, dynamic>))
+              .toList();
+        } catch (e) {
+          // debugPrint();
+          rethrow;
+        }
+
         // final Materials materials = Materials.fromJson(val['Materials']);
         return materials;
+      } else if (jsonResp.statusCode == 401) {
+        await _auth
+            .read(settingsControllerProvider.notifier)
+            .setLoggedIn(false);
+        throw jsonResp.statusMessage.toString();
       } else {
         throw jsonResp.statusMessage.toString();
       }

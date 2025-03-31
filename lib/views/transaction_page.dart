@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 
-class TransactionPage extends ConsumerStatefulWidget {
+class TransactionPage extends StatefulHookConsumerWidget {
   const TransactionPage({super.key});
 
   @override
@@ -24,7 +23,7 @@ class _TransactionPageState extends ConsumerState<TransactionPage> {
         body: Column(
           children: [
             InkWell(
-              onTap: () => context.goNamed(RouteConstants.pickingEnterDelivery),
+              onTap: () {},
               child: OrangeIconCardWidget(
                   context: context,
                   title: LangTextConstants.lbl_pick.tr,

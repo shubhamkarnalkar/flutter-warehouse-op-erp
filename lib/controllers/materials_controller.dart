@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/models/hive/materials/material_model.dart';
 import 'package:warehouse_erp/repositories/materials_repository.dart' as mm;
 import 'package:warehouse_erp/utils/utils.dart';
-
 import '../models/material_details/materials.dart';
 
 final materialsBoxProvider = Provider((ref) {
@@ -27,6 +26,15 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
 
   List<MaterialsModel> _getMaterialsFromLocal() {
     return _materialsBox.values.toList();
+  }
+
+  Future<void> local() async {
+    state = AsyncValue.data(_getMaterialsFromLocal());
+  }
+
+  MaterialsModel get(String material) {
+    return _getMaterialsFromLocal()
+        .firstWhere((element) => element.material == material);
   }
 
   /// This method is used to get the materials from the API call where
@@ -81,8 +89,7 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
       }
       await _materialsBox.put(matnr.material, mt).catchError((err) {
         debugPrint('Error: $err'); // Prints 401.
-      }, test: (error) {
-        return error is int && error >= 400;
+        throw err;
       });
     }
   }

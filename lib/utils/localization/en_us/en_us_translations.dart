@@ -53,4 +53,5 @@ final Map<String, String> enUs = {
       "Invalid username or password",
   LangTextConstants.msg_Nodatafound: "No data found",
   LangTextConstants.msg_url_not_set: "Url is not set",
+  LangTextConstants.lbl_all: "All",
 };

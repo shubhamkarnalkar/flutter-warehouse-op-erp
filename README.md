@@ -67,3 +67,5 @@ flutter run -d chrome --flavor dev -t lib/ main_dev.dart
 - For other type of apps:
   `flutter build [platform] --flavor prod -t lib/main_prod.dart`
   For more details, use the flutter's official documentation [here](https://docs.flutter.dev/deployment/ios#create-a-build-archive-and-upload-to-app-store-connect)
+
+

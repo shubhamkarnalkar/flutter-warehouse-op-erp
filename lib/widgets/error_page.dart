@@ -13,9 +13,7 @@ class ErrorPage extends ConsumerWidget {
     final errorList = GlobalMessenger.messageFormatter(
         obj.runtimeType == DioException ? obj as DioException : Object());
 
-    return SizedBox(
-      width: double.maxFinite,
-      height: double.maxFinite,
+    return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Center(

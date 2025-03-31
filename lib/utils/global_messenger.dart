@@ -53,7 +53,7 @@ class GlobalMessenger {
                 : ['401', LangTextConstants.msg_Invalidusernameorpassword.tr];
           case DioExceptionType.connectionTimeout:
             // TODO: lang
-            return ['400', 'Connection time out'];
+            return ['404', 'Connection time out'];
           default:
             return ['0', LangTextConstants.msg_something_went_wrong.tr];
         }
