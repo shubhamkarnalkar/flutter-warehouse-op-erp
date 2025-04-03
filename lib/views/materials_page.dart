@@ -1,11 +1,9 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
 import 'package:warehouse_erp/models/hive/materials/material_model.dart';
-import 'package:warehouse_erp/utils/localization/lang_text_constants.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 import '../controllers/materials_controller.dart';
@@ -38,46 +36,63 @@ class _MaterialMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      appBar: CustomAppBar(
-        title: LangTextConstants.lbl_materials.tr,
-        hasBackButton: false,
-      ),
-      body: ref.watch(settingsControllerProvider).materialsUrl.isEmpty
-          ? ErrorPage(
-              obj: LangTextConstants.lbl_materials.tr +
-                  LangTextConstants.msg_url_not_set.tr)
-          : switch (matProv) {
-              AsyncData(value: final matList) => matList.isEmpty
-                  ? ErrorPage(obj: LangTextConstants.msg_Nodatafound.tr)
-                  : Grids(matList: matList),
-              AsyncError(:final error) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 200,
-                      child: ErrorPage(
-                        obj: error,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 250,
+            backgroundColor: Colors.black,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: const EdgeInsets.all(15),
+              background: Image.asset(
+                ImageConstant.shipImg,
+                fit: BoxFit.cover,
+              ),
+              title: Text(
+                LangTextConstants.lbl_materials.tr,
+                style: theme.textTheme.headlineSmall!
+                    .copyWith(color: Colors.white),
+              ),
+              centerTitle: true,
+            ),
+          ),
+          SliverFillRemaining(
+            child: ref.watch(settingsControllerProvider).materialsUrl.isEmpty
+                ? ErrorPage(
+                    obj: LangTextConstants.lbl_materials.tr +
+                        LangTextConstants.msg_url_not_set.tr)
+                : switch (matProv) {
+                    AsyncData(value: final matList) => matList.isEmpty
+                        ? ErrorPage(obj: LangTextConstants.msg_Nodatafound.tr)
+                        : Grids(matList: matList),
+                    AsyncError(:final error) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 180,
+                            child: ErrorPage(
+                              obj: error,
+                            ),
+                          ),
+                          OutlinedButton(
+                            onPressed: () {
+                              ref
+                                  .read(materialsControllerProvider.notifier)
+                                  .local();
+                            },
+                            child: const Text('Fetch from local'),
+                          )
+                        ],
                       ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        ref.read(materialsControllerProvider.notifier).local();
-                      },
-                      child: const Text('Fetch from local'),
-                    )
-                  ],
-                ),
-              _ => const Center(
-                  child: Loader(),
-                ),
-            },
-      floatingActionButton: FloatingActionButton(
-        enableFeedback: true,
-        onPressed: () => matProv.isLoading
-            ? null
-            : ref.read(materialsControllerProvider.notifier).fetchMaterials(),
-        child: const Icon(Icons.sync_outlined),
+                    _ => const Center(
+                        child: Loader(),
+                      ),
+                  },
+          )
+        ],
       ),
     );
   }
@@ -124,14 +139,24 @@ class Grids extends ConsumerWidget {
         // TODO: lang
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'All',
-            style: theme.textTheme.titleLarge,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'All',
+                style: theme.textTheme.titleLarge,
+              ),
+              IconButton(
+                  onPressed: () => ref
+                      .read(materialsControllerProvider.notifier)
+                      .fetchMaterials(),
+                  icon: const Icon(Icons.sync_outlined))
+            ],
           ),
         ),
 
         Flexible(
-          flex: 4,
+          flex: 2,
           child: GridView(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: gridItemCount ?? 3,
@@ -200,88 +225,91 @@ class ColoredMaterialCards extends HookConsumerWidget {
       );
     }
 
-    return ListView.builder(
-      itemCount: fltdRecMat.length,
-      scrollDirection: Axis.horizontal,
-      controller: scroller,
-      physics: const ScrollPhysics(),
-      itemBuilder: (context, index) {
-        final randm = Random().nextInt(Pallete.colorCombi.length);
-        final key = Pallete.colorCombi.entries.toList()[randm].key;
-        final Color textColor =
-            Pallete.colorCombi[key]?['text'] ?? Colors.black;
-        final Color backgroundColor =
-            Pallete.colorCombi[key]?['background'] ?? Colors.orangeAccent;
-        return SizedBox(
-          height: 200,
-          width: 120,
-          child: InkWell(
-            onTap: () async {
-              ref
-                  .read(settingsControllerProvider.notifier)
-                  .addRecentMatarial(matList[index].material);
-              context.goNamed(
-                RouteConstants.matPropertiesPage,
-                pathParameters: <String, String>{'id': matList[index].material},
-              );
-            },
-            child: Card(
-              color: backgroundColor,
-              borderOnForeground: true,
-              clipBehavior: Clip.hardEdge,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.corporate_fare_sharp,
-                        color: textColor,
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        fltdRecMat[index]
-                            .properties
-                            .firstWhere(
-                              (element) =>
-                                  element.propertyName.contains('name') ||
-                                  element.propertyName.contains('descr'),
-                              orElse: () => PropertyModel(
-                                  propertyName: '',
-                                  propertyValue: '',
-                                  section: ''),
-                            )
-                            .propertyValue,
-                        maxLines: 1,
-                        style: theme.textTheme.bodyLarge!.copyWith(
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(
+        const Size(double.maxFinite, 130),
+      ),
+      child: ListView.builder(
+        itemCount: fltdRecMat.length,
+        scrollDirection: Axis.horizontal,
+        controller: scroller,
+        physics: const ScrollPhysics(),
+        itemBuilder: (context, index) {
+          final Color backgroundColor = UniqueColorGenerator.getDualColors()[1];
+          final Color textColor = UniqueColorGenerator.getDualColors()[0];
+          return SizedBox(
+            height: 200,
+            width: 120,
+            child: InkWell(
+              onTap: () async {
+                ref
+                    .read(settingsControllerProvider.notifier)
+                    .addRecentMatarial(matList[index].material);
+                context.goNamed(
+                  RouteConstants.matPropertiesPage,
+                  pathParameters: <String, String>{
+                    'id': matList[index].material
+                  },
+                );
+              },
+              child: Card(
+                color: backgroundColor,
+                borderOnForeground: true,
+                clipBehavior: Clip.hardEdge,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(
+                          Icons.corporate_fare_sharp,
                           color: textColor,
                         ),
                       ),
                     ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        fltdRecMat[index].material,
-                        style: theme.textTheme.titleLarge!
-                            .copyWith(color: textColor),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          fltdRecMat[index]
+                              .properties
+                              .firstWhere(
+                                (element) =>
+                                    element.propertyName.contains('name') ||
+                                    element.propertyName.contains('descr'),
+                                orElse: () => PropertyModel(
+                                    propertyName: '',
+                                    propertyValue: '',
+                                    section: ''),
+                              )
+                              .propertyValue,
+                          maxLines: 1,
+                          style: theme.textTheme.bodyLarge!.copyWith(
+                            color: textColor,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          fltdRecMat[index].material,
+                          style: theme.textTheme.titleLarge!
+                              .copyWith(color: textColor),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

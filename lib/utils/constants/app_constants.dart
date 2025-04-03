@@ -13,17 +13,16 @@ class LottieConsts {
 
 class ImageConstant {
   //common paths
-  static String imagePath = 'assets/images';
-  static String svgPath = 'assets/svgs';
+  static const String _imagePath = 'assets/images';
+  static const String _svgPath = 'assets/svgs';
 
   //SVGs
-  static String manLoginPageSVG = '$svgPath/login-page-image-man.svg';
-  static String logoCompanySVG = '$svgPath/company-logo.svg';
+  static String manLoginPageSVG = '$_svgPath/login-page-image-man.svg';
+  static String logoCompanySVG = '$_svgPath/company-logo.svg';
   //PNG
-  static String imageNotFound = '$imagePath/image_not_found.png';
+  static String imageNotFound = '$_imagePath/image_not_found.png';
 
-  //JPG
-  static String palletJpg = '$imagePath/Pallet.jpg';
+  static String shipImg = '$_imagePath/materials-ships.jpg';
 }
 
 class HiveConstants {

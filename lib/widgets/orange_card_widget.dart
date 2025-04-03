@@ -33,7 +33,7 @@ class OrangeCardWidget extends StatelessWidget {
                 radius: 63,
                 child: CircleAvatar(
                   radius: 60,
-                  backgroundImage: AssetImage(ImageConstant.palletJpg),
+                  backgroundImage: AssetImage(ImageConstant.shipImg),
                 ),
               ),
             ),
