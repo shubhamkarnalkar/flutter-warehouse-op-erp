@@ -1,9 +1,11 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:warehouse_erp/controllers/settings_controller.dart';
 import 'package:warehouse_erp/models/hive/materials/material_model.dart';
+import 'package:warehouse_erp/utils/localization/lang_text_constants.dart';
 import 'package:warehouse_erp/utils/utils.dart';
 import 'package:warehouse_erp/widgets/custom_widgets.dart';
 import '../controllers/materials_controller.dart';
@@ -81,7 +83,7 @@ class _MaterialMobile extends StatelessWidget {
   }
 }
 
-class Grids extends StatelessWidget {
+class Grids extends ConsumerWidget {
   const Grids({
     super.key,
     required this.matList,
@@ -92,7 +94,7 @@ class Grids extends StatelessWidget {
   final int? gridItemCount;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
     return Column(
@@ -140,10 +142,17 @@ class Grids extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: () => context.goNamed(
-                      RouteConstants.matPropertiesPage,
-                      pathParameters: <String, String>{'id': mat.material},
-                    ),
+                    onTap: () async {
+                      Future.microtask(
+                        () async => await ref
+                            .read(settingsControllerProvider.notifier)
+                            .addRecentMatarial(mat.material),
+                      );
+                      context.goNamed(
+                        RouteConstants.matPropertiesPage,
+                        pathParameters: <String, String>{'id': mat.material},
+                      );
+                    },
                     child: MaterialTileWidget(
                       material: mat.properties.first.propertyName,
                       title: mat.material,
@@ -159,7 +168,7 @@ class Grids extends StatelessWidget {
   }
 }
 
-class ColoredMaterialCards extends StatelessWidget {
+class ColoredMaterialCards extends HookConsumerWidget {
   const ColoredMaterialCards({
     super.key,
     required this.matList,
@@ -170,10 +179,32 @@ class ColoredMaterialCards extends StatelessWidget {
   final ThemeData theme;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scroller = useScrollController();
+    final recent =
+        ref.watch(settingsControllerProvider).recentMaterials?.reversed;
+    final List<MaterialsModel> fltdRecMat = [];
+    if (recent != null) {
+      for (final i in recent) {
+        fltdRecMat.add(matList.where((element) => element.material == i).first);
+      }
+    }
+    if (fltdRecMat.isEmpty) {
+      return SizedBox(
+        child: Center(
+          child: Text(
+            LangTextConstants.msg_Nodatafound.tr,
+            style: theme.textTheme.titleMedium,
+          ),
+        ),
+      );
+    }
+
     return ListView.builder(
-      itemCount: matList.length,
+      itemCount: fltdRecMat.length,
       scrollDirection: Axis.horizontal,
+      controller: scroller,
+      physics: const ScrollPhysics(),
       itemBuilder: (context, index) {
         final randm = Random().nextInt(Pallete.colorCombi.length);
         final key = Pallete.colorCombi.entries.toList()[randm].key;
@@ -185,10 +216,15 @@ class ColoredMaterialCards extends StatelessWidget {
           height: 200,
           width: 120,
           child: InkWell(
-            onTap: () => context.goNamed(
-              RouteConstants.matPropertiesPage,
-              pathParameters: <String, String>{'id': matList[index].material},
-            ),
+            onTap: () async {
+              ref
+                  .read(settingsControllerProvider.notifier)
+                  .addRecentMatarial(matList[index].material);
+              context.goNamed(
+                RouteConstants.matPropertiesPage,
+                pathParameters: <String, String>{'id': matList[index].material},
+              );
+            },
             child: Card(
               color: backgroundColor,
               borderOnForeground: true,
@@ -210,7 +246,7 @@ class ColoredMaterialCards extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        matList[index]
+                        fltdRecMat[index]
                             .properties
                             .firstWhere(
                               (element) =>
@@ -234,7 +270,7 @@ class ColoredMaterialCards extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        matList[index].material,
+                        fltdRecMat[index].material,
                         style: theme.textTheme.titleLarge!
                             .copyWith(color: textColor),
                       ),

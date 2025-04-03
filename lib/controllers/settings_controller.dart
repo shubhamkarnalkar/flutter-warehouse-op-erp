@@ -64,7 +64,7 @@ class SettingsController extends StateNotifier<SettingsModel> {
 
   Future<void> switchThemeMode() async {
     await _settingsBox.put(1, state.copyWith(isDark: !state.isDark));
-    state = state.copyWith(isDark: !state.isDark);
+    state = _getSetting();
   }
 
   Future<void> handleColorSelect(int value) async {
@@ -74,16 +74,14 @@ class SettingsController extends StateNotifier<SettingsModel> {
         seedColorId: value,
       ),
     );
-    state = state.copyWith(
-      seedColorId: value,
-    );
+    state = _getSetting();
   }
 
   Future<void> setLanguage(int lang) async {
     try {
       final l = Language.languageList().firstWhere((i) => i.id == lang).id;
       await _settingsBox.put(1, state.copyWith(locale: l));
-      state = state.copyWith(locale: l);
+      state = _getSetting();
     } catch (e) {
       //TODO show dialogue to let the user know that the int passed is not valid
     }
@@ -108,19 +106,19 @@ class SettingsController extends StateNotifier<SettingsModel> {
     switch (url) {
       case UrlsApp.base:
         await _settingsBox.put(1, state.copyWith(baseUrl: value));
-        state = state.copyWith(baseUrl: value);
+        state = _getSetting();
         break;
       case UrlsApp.inventory:
         await _settingsBox.put(1, state.copyWith(inventoryUrl: value));
-        state = state.copyWith(inventoryUrl: value);
+        state = _getSetting();
         break;
       case UrlsApp.materials:
         await _settingsBox.put(1, state.copyWith(materialsUrl: value));
-        state = state.copyWith(materialsUrl: value);
+        state = _getSetting();
         break;
       case UrlsApp.signIn:
         await _settingsBox.put(1, state.copyWith(signInUrl: value));
-        state = state.copyWith(signInUrl: value);
+        state = _getSetting();
         break;
 
       default:
@@ -137,11 +135,7 @@ class SettingsController extends StateNotifier<SettingsModel> {
           accessToken: accTok,
           isLoggedIn: isLoggedin),
     );
-    state = state.copyWith(
-        password: pwd,
-        username: usrname,
-        accessToken: accTok,
-        isLoggedIn: isLoggedin);
+    state = _getSetting();
   }
 
   Future<void> setLoggedIn(bool isLog) async {
@@ -149,6 +143,43 @@ class SettingsController extends StateNotifier<SettingsModel> {
       1,
       state.copyWith(isLoggedIn: isLog),
     );
-    state = state.copyWith(isLoggedIn: isLog);
+    state = _getSetting();
+  }
+
+  /// [addRecentMatarial] is used to store the values which are opened
+  /// by user recently, if reverse value is used when needed
+  /// if the material value is present in the list then first remove that value
+  /// and then add it again, so the latest used value of the material will be
+  /// appended at the last element of the list
+  Future<void> addRecentMatarial(String mat) async {
+    List<String> matList = [];
+    if (state.recentMaterials != null) {
+      if (!state.recentMaterials!.contains(mat)) {
+        matList = [...?state.recentMaterials, mat];
+        matList.toSet().toList();
+        await _settingsBox.put(
+          1,
+          state.copyWith(recentMaterials: matList),
+        );
+        state = _getSetting();
+      } else {
+        state.recentMaterials!.removeWhere((element) => element == mat);
+        matList = [...?state.recentMaterials, mat];
+        matList.toSet().toList();
+        await _settingsBox.put(
+          1,
+          state.copyWith(recentMaterials: matList),
+        );
+        state = _getSetting();
+      }
+    } else {
+      matList = [mat];
+      matList.toSet().toList();
+      await _settingsBox.put(
+        1,
+        state.copyWith(recentMaterials: matList),
+      );
+      state = _getSetting();
+    }
   }
 }

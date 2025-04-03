@@ -42,6 +42,9 @@ class SettingsModel extends HiveObject with EquatableMixin {
   @HiveField(11)
   late String accessToken;
 
+  @HiveField(12)
+  final List<String>? recentMaterials;
+
   SettingsModel({
     this.isDark = true,
     this.textScaleFactor = 1.0,
@@ -55,6 +58,7 @@ class SettingsModel extends HiveObject with EquatableMixin {
     this.username = '',
     this.password = '',
     this.accessToken = '',
+    this.recentMaterials,
   });
 
   @override
@@ -77,20 +81,21 @@ class SettingsModel extends HiveObject with EquatableMixin {
     String? username,
     String? password,
     String? accessToken,
+    List<String>? recentMaterials,
   }) {
     return SettingsModel(
-      isDark: isDark ?? this.isDark,
-      textScaleFactor: textScaleFactor ?? this.textScaleFactor,
-      locale: locale ?? this.locale,
-      seedColorId: seedColorId ?? this.seedColorId,
-      baseUrl: baseUrl ?? this.baseUrl,
-      materialsUrl: materialsUrl ?? this.materialsUrl,
-      inventoryUrl: inventoryUrl ?? this.inventoryUrl,
-      signInUrl: signInUrl ?? this.signInUrl,
-      isLoggedIn: isLoggedIn,
-      username: username ?? this.username,
-      password: password ?? this.password,
-      accessToken: accessToken ?? this.accessToken,
-    );
+        isDark: isDark ?? this.isDark,
+        textScaleFactor: textScaleFactor ?? this.textScaleFactor,
+        locale: locale ?? this.locale,
+        seedColorId: seedColorId ?? this.seedColorId,
+        baseUrl: baseUrl ?? this.baseUrl,
+        materialsUrl: materialsUrl ?? this.materialsUrl,
+        inventoryUrl: inventoryUrl ?? this.inventoryUrl,
+        signInUrl: signInUrl ?? this.signInUrl,
+        isLoggedIn: isLoggedIn,
+        username: username ?? this.username,
+        password: password ?? this.password,
+        accessToken: accessToken ?? this.accessToken,
+        recentMaterials: recentMaterials ?? this.recentMaterials);
   }
 }

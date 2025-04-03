@@ -47,6 +47,7 @@ class _MaterialPropertiesPageState
           title: const Text('Material Properties'),
           bottom: TabBar(
             controller: tabBarContr,
+            isScrollable: true,
             tabs: [
               for (final sec in sections.toList())
                 Tab(
@@ -60,11 +61,9 @@ class _MaterialPropertiesPageState
           controller: tabBarContr,
           children: [
             for (final sec in sections.toList())
-              Expanded(
-                child: PropertiesWidget(
-                  currProperties: mat.properties.toSet(),
-                  section: sec,
-                ),
+              PropertiesWidget(
+                currProperties: mat.properties.toSet(),
+                section: sec,
               ),
           ],
         ),
@@ -136,7 +135,10 @@ class PropertiesDataSource extends DataTableSource {
           Text(props.toList()[index].propertyName),
         ),
         DataCell(
-          Text(props.toList()[index].propertyValue),
+          Text(
+            props.toList()[index].propertyValue,
+            maxLines: 2,
+          ),
         ),
       ]);
     }

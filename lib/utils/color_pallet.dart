@@ -13,7 +13,7 @@ class Pallete {
   static const Color blue = Color(0XFF2B499C);
   static const colorCombi = {
     'Red & White': {
-      'background': Color.fromARGB(255, 255, 0, 0), // Red background
+      'background': Color.fromARGB(120, 255, 0, 0), // Red background
       'text': Color.fromARGB(255, 255, 255, 255), // White text
     },
     'Green & Black': {
@@ -21,31 +21,31 @@ class Pallete {
       'text': Color.fromARGB(255, 0, 0, 0), // Black text
     },
     'Blue & Yellow': {
-      'background': Color.fromARGB(255, 0, 0, 255), // Blue background
-      'text': Color.fromARGB(255, 255, 255, 0), // Yellow text
+      'background': Color.fromARGB(180, 0, 0, 255), // Blue background
+      'text': Color.fromARGB(180, 255, 255, 0), // Yellow text
     },
     'Purple & Orange': {
       'background': Color.fromARGB(255, 128, 0, 128), // Purple background
-      'text': Color.fromARGB(255, 255, 165, 0), // Orange text
+      'text': Color.fromARGB(170, 255, 165, 0), // Orange text
     },
     'Black & White': {
-      'background': Color.fromARGB(255, 0, 0, 0), // Black background
-      'text': Color.fromARGB(255, 255, 255, 255), // White text
+      'background': Color.fromARGB(170, 0, 0, 0), // Black background
+      'text': Color.fromARGB(170, 255, 255, 255), // White text
     },
     'Cyan & Dark Blue': {
-      'background': Color.fromARGB(255, 0, 255, 255), // Cyan background
+      'background': Color.fromARGB(170, 0, 255, 255), // Cyan background
       'text': Color.fromARGB(255, 0, 0, 139), // Dark Blue text
     },
     'Pink & Dark Grey': {
-      'background': Color.fromARGB(255, 255, 105, 180), // Pink background
-      'text': Color.fromARGB(255, 105, 105, 105), // Dark Grey text
+      'background': Color.fromARGB(170, 255, 105, 180), // Pink background
+      'text': Color.fromARGB(190, 11, 6, 6), // Dark Grey text
     },
     'Orange & Navy Blue': {
       'background': Color.fromARGB(255, 255, 165, 0), // Orange background
       'text': Color.fromARGB(255, 0, 0, 128), // Navy Blue text
     },
     'Yellow & Purple': {
-      'background': Color.fromARGB(255, 255, 255, 0), // Yellow background
+      'background': Color.fromARGB(255, 173, 173, 46), // Yellow background
       'text': Color.fromARGB(255, 128, 0, 128), // Purple text
     },
     'Brown & Beige': {
@@ -53,8 +53,8 @@ class Pallete {
       'text': Color.fromARGB(255, 245, 245, 220), // Beige text
     },
     'Magenta & Lime Green': {
-      'background': Color.fromARGB(255, 255, 0, 255), // Magenta background
-      'text': Color.fromARGB(255, 0, 255, 0), // Lime Green text
+      'background': Color.fromARGB(170, 255, 0, 255), // Magenta background
+      'text': Color.fromARGB(180, 0, 255, 0), // Lime Green text
     },
     'Teal & Coral': {
       'background': Color.fromARGB(255, 0, 128, 128), // Teal background
@@ -65,20 +65,16 @@ class Pallete {
       'text': Color.fromARGB(255, 139, 0, 0), // Dark Red text
     },
     'Chartreuse & Midnight Blue': {
-      'background': Color.fromARGB(255, 223, 255, 0), // Chartreuse background
+      'background': Color.fromARGB(170, 223, 255, 0), // Chartreuse background
       'text': Color.fromARGB(255, 25, 25, 112), // Midnight Blue text
     },
     'Gold & Dark Green': {
-      'background': Color.fromARGB(255, 255, 215, 0), // Gold background
+      'background': Color.fromARGB(170, 255, 215, 0), // Gold background
       'text': Color.fromARGB(255, 0, 100, 0), // Dark Green text
     },
     'Lavender & Dark Brown': {
       'background': Color.fromARGB(255, 230, 230, 250), // Lavender background
       'text': Color.fromARGB(255, 101, 67, 33), // Dark Brown text
-    },
-    'Crimson & Ivory': {
-      'background': Color.fromARGB(255, 220, 20, 60), // Crimson background
-      'text': Color.fromARGB(255, 255, 255, 240), // Ivory text
     },
     'Sky Blue & Dark Slate Gray': {
       'background': Color.fromARGB(255, 135, 206, 235), // Sky Blue background
@@ -89,12 +85,8 @@ class Pallete {
       'text': Color.fromARGB(255, 211, 211, 211), // Light Gray text
     },
     'Deep Pink & Slate Blue': {
-      'background': Color.fromARGB(255, 255, 20, 147), // Deep Pink background
-      'text': Color.fromARGB(255, 106, 90, 205), // Slate Blue text
-    },
-    'Electric Blue & Orange Red': {
-      'background': Color.fromARGB(255, 0, 0, 255), // Electric Blue background
-      'text': Color.fromARGB(255, 255, 69, 0), // Orange Red text
+      'background': Color.fromARGB(130, 255, 20, 147), // Deep Pink background
+      'text': Color.fromARGB(170, 17, 8, 75), // Slate Blue text
     },
     'Slate Gray & Snow': {
       'background': Color.fromARGB(255, 112, 128, 144), // Slate Gray background

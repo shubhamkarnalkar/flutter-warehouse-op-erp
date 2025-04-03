@@ -29,13 +29,14 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       username: fields[9] as String,
       password: fields[10] as String,
       accessToken: fields[11] as String,
+      recentMaterials: (fields[12] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, SettingsModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.isDark)
       ..writeByte(1)
@@ -59,7 +60,9 @@ class SettingsModelAdapter extends TypeAdapter<SettingsModel> {
       ..writeByte(10)
       ..write(obj.password)
       ..writeByte(11)
-      ..write(obj.accessToken);
+      ..write(obj.accessToken)
+      ..writeByte(12)
+      ..write(obj.recentMaterials);
   }
 
   @override

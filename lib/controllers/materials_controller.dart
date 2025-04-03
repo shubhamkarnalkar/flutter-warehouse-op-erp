@@ -51,6 +51,8 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
           .read(loadingMessageProvider.notifier)
           .update((state) => LangTextConstants.msg_Fetchingdataforyou.tr);
       final resp = await ref.read(mm.materialsReposProvider).getAll();
+      // TODO Lang
+      ref.read(loadingMessageProvider.notifier).state = 'Saving data locally';
       await _saveMaterials(resp);
       return _getMaterialsFromLocal();
     });

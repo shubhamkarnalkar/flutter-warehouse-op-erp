@@ -34,7 +34,7 @@ class MaterialTileWidget extends StatelessWidget {
                 backgroundColor: UniqueColorGenerator.getColor(),
                 child: Text(
                   cirAvatr,
-                  style: them.textTheme.headlineMedium,
+                  style: them.textTheme.headlineMedium!.copyWith(),
                 ),
               ),
             ),
