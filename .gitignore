@@ -47,7 +47,7 @@ app.*.map.json
 .fvm/
 
 # .vscode
-.vscode
+.vscode/settings.json
 
 # generated files which are not needed
 /macos/Flutter/GeneratedPluginRegistrant.swift

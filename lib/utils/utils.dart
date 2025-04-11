@@ -13,6 +13,6 @@ export 'router/router_imports.dart';
 export 'show_snack_bar.dart';
 export 'theme.dart';
 export 'typedefs.dart';
-export 'random_color_generator.dart';
+export 'unique_color_generator.dart';
 export 'custom_convert.dart';
 export 'global_messenger.dart';

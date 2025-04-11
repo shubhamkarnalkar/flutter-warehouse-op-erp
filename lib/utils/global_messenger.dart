@@ -34,6 +34,13 @@ class GlobalMessenger {
             e.response?.statusCode.toString() ?? '400',
             'Connection time out'
           ];
+
+        case DioExceptionType.connectionError:
+          // TODO: lang
+          return [
+            e.response?.statusCode.toString() ?? '401',
+            'Connection Error'
+          ];
         default:
           return [
             e.response?.statusCode.toString() ?? '400',
@@ -54,6 +61,9 @@ class GlobalMessenger {
           case DioExceptionType.connectionTimeout:
             // TODO: lang
             return ['404', 'Connection time out'];
+          case DioExceptionType.connectionError:
+            // TODO: lang
+            return ['404', 'Connection Error'];
           default:
             return ['0', LangTextConstants.msg_something_went_wrong.tr];
         }

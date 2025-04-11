@@ -17,35 +17,38 @@ class URLSelectorChangeButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final urls = UrlsAppModel.urlTypes();
     final nowURL = urls[selectedURL];
-    return PopupMenuButton(
-      icon: Row(
-        children: [
-          Text(nowURL.name),
-          sizedBoxH20(),
-          const Icon(
-            Icons.language,
-          ),
-        ],
-      ),
-      tooltip: 'Select a URL',
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      itemBuilder: (context) {
-        return List.generate(urls.length, (index) {
-          final currentURL = urls[index];
-          return PopupMenuItem(
-            value: index,
-            child: Wrap(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(currentURL.name.toString()),
-                ),
-              ],
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: PopupMenuButton(
+        icon: Row(
+          children: [
+            Text(nowURL.name),
+            sizedBoxH20(),
+            const Icon(
+              Icons.language,
             ),
-          );
-        });
-      },
-      onSelected: handleURLSelect,
+          ],
+        ),
+        tooltip: 'Select a URL',
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        itemBuilder: (context) {
+          return List.generate(urls.length, (index) {
+            final currentURL = urls[index];
+            return PopupMenuItem(
+              value: index,
+              child: Wrap(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Text(currentURL.name.toString()),
+                  ),
+                ],
+              ),
+            );
+          });
+        },
+        onSelected: handleURLSelect,
+      ),
     );
   }
 }

@@ -31,6 +31,8 @@ class ErrorPage extends ConsumerWidget {
             Text(
               obj as String,
               style: Theme.of(context).textTheme.headlineSmall,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             )
           else if (errorList[0].toString().contains('404'))
             Column(

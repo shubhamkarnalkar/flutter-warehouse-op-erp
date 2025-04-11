@@ -26,6 +26,7 @@ class _AppState extends ConsumerState<App> {
       routerConfig: router,
       themeMode: themeMode,
       scaffoldMessengerKey: scaffoldMessengerKey,
+      debugShowCheckedModeBanner: false,
       locale: lng,
       localizationsDelegates: const [
         AppLocalizationDelegate(),

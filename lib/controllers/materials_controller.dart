@@ -77,10 +77,12 @@ class MaterialsController extends AsyncNotifier<List<MaterialsModel>> {
           mt.properties.add(prp);
         }
       } else {
+        final colors = UniqueColorGenerator.getDualColors();
         mt = MaterialsModel(
-          material: matnr.material,
-          properties: [],
-        );
+            material: matnr.material,
+            properties: [],
+            text: colors[0].value.toString(),
+            background: colors[1].value.toString());
         for (final prpt in matnr.properties) {
           final PropertyModel prp = PropertyModel(
               propertyName: prpt.propertyName,

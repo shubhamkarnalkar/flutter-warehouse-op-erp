@@ -134,57 +134,58 @@ class TileForTextScale extends ConsumerWidget {
     final theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 17),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            LangTextConstants.lbl_text_scale.tr,
-            style: theme.textTheme.bodyLarge,
-          ),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () async => ref
-                    .read(settingsControllerProvider.notifier)
-                    .decreaseGlobalTextSize(),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          20.0), // Adjust the radius as needed
+      child: SizedBox(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              LangTextConstants.lbl_text_scale.tr,
+              style: theme.textTheme.bodyLarge,
+            ),
+            Row(
+              children: [
+                ElevatedButton(
+                  onPressed: () async => ref
+                      .read(settingsControllerProvider.notifier)
+                      .decreaseGlobalTextSize(),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Adjust the radius as needed
+                      ),
                     ),
                   ),
-                ),
-                child: Text(
-                  '-',
-                  style: theme.textTheme.headlineSmall,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child:
-                    Text(settings.textScaleFactor.toString().substring(0, 3)),
-              ),
-              ElevatedButton(
-                onPressed: () async => ref
-                    .read(settingsControllerProvider.notifier)
-                    .increaseGlobalTextSize(),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          20.0), // Adjust the radius as needed
-                    ),
+                  child: Text(
+                    '-',
+                    style: theme.textTheme.headlineSmall,
                   ),
                 ),
-                child: Text(
-                  '+',
-                  style: theme.textTheme.headlineSmall,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(settings.textScaleFactor.toString()),
                 ),
-              ),
-            ],
-          ),
-        ],
+                ElevatedButton(
+                  onPressed: () async => ref
+                      .read(settingsControllerProvider.notifier)
+                      .increaseGlobalTextSize(),
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                            20.0), // Adjust the radius as needed
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    '+',
+                    style: theme.textTheme.headlineSmall,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

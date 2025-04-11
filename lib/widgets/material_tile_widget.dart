@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:warehouse_erp/utils/utils.dart';
+import 'package:warehouse_erp/models/hive/materials/material_model.dart';
 
 class MaterialTileWidget extends StatelessWidget {
   const MaterialTileWidget({
@@ -10,13 +10,13 @@ class MaterialTileWidget extends StatelessWidget {
   });
   final String title;
   final String? subtitle;
-  final String material;
+  final MaterialsModel material;
 
   @override
   Widget build(BuildContext context) {
     final them = Theme.of(context);
     final String cirAvatr =
-        material[0].toUpperCase() + material[1].toUpperCase();
+        material.properties.first.propertyValue.toUpperCase().characters.first;
     return Card(
       color: them.canvasColor,
       borderOnForeground: true,
@@ -27,11 +27,11 @@ class MaterialTileWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
-              // backgroundColor: Colors.black,
+              backgroundColor: Color(int.parse(material.background)),
               radius: 37,
               child: CircleAvatar(
                 radius: 36,
-                backgroundColor: UniqueColorGenerator.getColor(),
+                backgroundColor: Color(int.parse(material.background)),
                 child: Text(
                   cirAvatr,
                   style: them.textTheme.headlineMedium!.copyWith(),

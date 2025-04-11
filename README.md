@@ -50,7 +50,7 @@ samples, guidance on mobile development, and a full API reference.
 ```Dart
 flutter run --flavor prod -t lib/main_prod.dart
 
-flutter run -d chrome --flavor dev -t lib/ main_dev.dart
+flutter run -d chrome --flavor dev -t lib/main_dev.dart
 ```
 
 - Build an android apk:

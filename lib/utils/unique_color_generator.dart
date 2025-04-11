@@ -14,6 +14,8 @@ class UniqueColorGenerator {
     return clr != Colors.white ? clr : Colors.orangeAccent;
   }
 
+  /// [getDualColors] gives two colors back,
+  /// first is for text, and second is for background
   static List<Color> getDualColors() {
     final randm = Random().nextInt(Pallete.colorCombi.length);
     final key = Pallete.colorCombi.entries.toList()[randm].key;

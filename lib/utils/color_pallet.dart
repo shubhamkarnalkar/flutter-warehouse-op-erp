@@ -76,10 +76,6 @@ class Pallete {
       'background': Color.fromARGB(255, 230, 230, 250), // Lavender background
       'text': Color.fromARGB(255, 101, 67, 33), // Dark Brown text
     },
-    'Sky Blue & Dark Slate Gray': {
-      'background': Color.fromARGB(255, 135, 206, 235), // Sky Blue background
-      'text': Color.fromARGB(255, 47, 79, 79), // Dark Slate Gray text
-    },
     'Sea Green & Light Gray': {
       'background': Color.fromARGB(255, 46, 139, 87), // Sea Green background
       'text': Color.fromARGB(255, 211, 211, 211), // Light Gray text
