@@ -13,6 +13,8 @@ class RouteConstants {
   static const String setUrlsPage = 'SetURLsPage';
   static const String loginPage = 'LoginPage';
   static const String matPropertiesPage = 'MatPropertiesPage';
+  static const String fillDetailsForTransactionsPage =
+      'FillDetailsForTransactionsPage';
 
   // These are the navigation screens on the home screen
   static const List<NavigationDestination> navigationItems = [

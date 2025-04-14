@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,91 +24,125 @@ class _SetUrlPageState extends ConsumerState<SetUrlPage> {
     final urls = UrlsAppModel.urlTypes();
     txtURL.text = sett.getURL(curl.value);
     return Responsive(
-      mobile: Scaffold(
-        appBar: CustomAppBar(
-          hasBackButton: kIsWeb ? false : true,
-          title: LangTextConstants.lbl_set_urls.tr,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: OutlinedButton(
-                onPressed: () {
-                  if (txtURL.text.isEmpty) {
-                    QuickAlert.show(
-                        context: context,
-                        type: QuickAlertType.error,
-                        confirmBtnColor: Theme.of(context)
-                            .buttonTheme
-                            .colorScheme!
-                            .onPrimaryContainer,
-                        // TODO lang
-                        text: 'The value is empty');
-                  } else {
-                    sett.setUrl(urls[curl.value].url, txtURL.text);
-                    QuickAlert.show(
-                        context: context,
-                        type: QuickAlertType.success,
-                        confirmBtnColor: Theme.of(context)
-                            .buttonTheme
-                            .colorScheme!
-                            .onPrimaryContainer,
-                        // TODO lang
-                        text: '${urls[curl.value].name} URL value is saved');
-                  }
-                },
-                child: Text(LangTextConstants.lbl_save.tr),
-              ),
-            )
-          ],
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Card(
-                child: SizedBox(
-                  height: 80,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text('Select a URL to edit'),
-                      ),
-                      URLSelectorChangeButton(
-                        handleURLSelect: (p0) {
-                          curl.value = p0;
-                        },
-                        selectedURL: curl.value,
-                      ),
-                    ],
+      mobile: _Mob(
+        txtURL: txtURL,
+        sett: sett,
+        urls: urls,
+        curl: curl,
+        hasBackButton: true,
+      ),
+      tablet: _Mob(
+        txtURL: txtURL,
+        sett: sett,
+        urls: urls,
+        curl: curl,
+        hasBackButton: false,
+      ),
+    );
+  }
+}
+
+class _Mob extends StatelessWidget {
+  const _Mob(
+      {required this.txtURL,
+      required this.sett,
+      required this.urls,
+      required this.curl,
+      required this.hasBackButton});
+
+  final TextEditingController txtURL;
+  final SettingsController sett;
+  final List<UrlsAppModel> urls;
+  final ValueNotifier<int> curl;
+  final bool hasBackButton;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(
+        hasBackButton: hasBackButton,
+        title: LangTextConstants.lbl_set_urls.tr,
+      ),
+      body: Column(
+        children: [
+          Card(
+            clipBehavior: Clip.hardEdge,
+            child: SizedBox(
+              height: 80,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text('Select a URL to edit'),
                   ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: 200,
-                  child: TextField(
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                        borderSide:
-                            BorderSide(style: BorderStyle.solid, width: 2),
-                      ),
-                    ),
-                    controller: txtURL,
-                    maxLines: 5,
+                  URLSelectorChangeButton(
+                    handleURLSelect: (p0) {
+                      curl.value = p0;
+                    },
+                    selectedURL: curl.value,
                   ),
-                ),
-              )
-            ],
+                ],
+              ),
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: SizedBox(
+              height: 100,
+              child: TextField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5),
+                    ),
+                    borderSide: BorderSide(style: BorderStyle.solid, width: 2),
+                  ),
+                ),
+                controller: txtURL,
+                maxLines: 3,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(),
+                OutlinedButton(
+                  onPressed: () {
+                    if (txtURL.text.isEmpty) {
+                      QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.error,
+                          animType: QuickAlertAnimType.slideInUp,
+                          confirmBtnColor: Theme.of(context)
+                              .buttonTheme
+                              .colorScheme!
+                              .onPrimaryContainer,
+                          // TODO lang
+                          text: 'The value is empty');
+                    } else {
+                      sett.setUrl(urls[curl.value].url, txtURL.text);
+                      QuickAlert.show(
+                          context: context,
+                          type: QuickAlertType.success,
+                          animType: QuickAlertAnimType.slideInUp,
+                          confirmBtnColor: Theme.of(context)
+                              .buttonTheme
+                              .colorScheme!
+                              .onPrimaryContainer,
+                          // TODO lang
+                          text: '${urls[curl.value].name} URL value is saved');
+                    }
+                  },
+                  child: Text(LangTextConstants.lbl_save.tr),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

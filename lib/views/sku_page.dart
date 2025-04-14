@@ -1,6 +1,5 @@
-// ignore_for_file: unnecessary_cast
-
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -87,11 +86,9 @@ class _MaterialMobile extends StatelessWidget {
                             ],
                           )
                         : LayoutBuilder(
-                            builder: (context, constraints) => Grids(
+                            builder: (context, constraints) => _GridsMobile(
                               matList: matList,
-                              gridItemCount:
-                                  (constraints.maxWidth ~/ 120).round(),
-                              childAspectRatio: 0.8,
+                              childAspectRatio: 0.9,
                             ),
                           ),
                     AsyncError(:final error) => Column(
@@ -186,11 +183,11 @@ class _MaterialTablet extends StatelessWidget {
                             ],
                           )
                         : LayoutBuilder(
-                            builder: (context, constraints) => Grids(
+                            builder: (context, constraints) => _GridsTablet(
                               matList: matList,
+                              childAspectRatio: 0.9,
                               gridItemCount:
                                   (constraints.maxWidth ~/ 120).round(),
-                              childAspectRatio: 0.8,
                             ),
                           ),
                     AsyncError(:final error) => Column(
@@ -226,16 +223,100 @@ class _MaterialTablet extends StatelessWidget {
   }
 }
 
-class Grids extends ConsumerWidget {
-  const Grids({
-    super.key,
+class _GridsTablet extends ConsumerWidget {
+  const _GridsTablet({
     required this.matList,
-    this.gridItemCount = 3,
-    this.childAspectRatio = 0.85,
+    this.childAspectRatio,
+    required this.gridItemCount,
   });
 
   final List<MaterialsModel> matList;
-  final int? gridItemCount;
+  final int gridItemCount;
+  final double? childAspectRatio;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // TODO: lang
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Text(
+                'Recent',
+                style: theme.textTheme.titleLarge,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 140,
+          child: ColoredMaterialCards(
+            matList: matList,
+            theme: theme,
+          ),
+        ),
+
+        // TODO: lang
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'All',
+                style: theme.textTheme.titleLarge,
+              ),
+              IconButton(
+                  onPressed: () => ref
+                      .read(materialsControllerProvider.notifier)
+                      .fetchMaterials(),
+                  icon: const Icon(Icons.sync_outlined))
+            ],
+          ),
+        ),
+
+        Expanded(
+          child: GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: gridItemCount,
+              childAspectRatio: childAspectRatio ?? 0.4,
+            ),
+            children: [
+              for (final mat in matList)
+                InkWell(
+                  onTap: () async {
+                    Future.microtask(
+                      () async => await ref
+                          .read(settingsControllerProvider.notifier)
+                          .addRecentMatarial(mat.material),
+                    );
+                    context.goNamed(
+                      RouteConstants.matPropertiesPage,
+                      pathParameters: <String, String>{'id': mat.material},
+                    );
+                  },
+                  child: MaterialTileWidget(
+                    material: mat,
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _GridsMobile extends ConsumerWidget {
+  const _GridsMobile({required this.matList, required this.childAspectRatio});
+
+  final List<MaterialsModel> matList;
   final double childAspectRatio;
 
   @override
@@ -258,16 +339,11 @@ class Grids extends ConsumerWidget {
             ],
           ),
         ),
-        Flexible(
-          flex: 1,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5),
-            child: ColoredMaterialCards(
-              matList: matList,
-              theme: theme,
-              gridItemCount: gridItemCount,
-              childAspectRatio: childAspectRatio,
-            ),
+        SizedBox(
+          height: 160,
+          child: ColoredMaterialCards(
+            matList: matList,
+            theme: theme,
           ),
         ),
 
@@ -294,7 +370,7 @@ class Grids extends ConsumerWidget {
           flex: 2,
           child: GridView(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: gridItemCount ?? 3,
+              crossAxisCount: 3,
               childAspectRatio: childAspectRatio,
             ),
             children: [
@@ -315,8 +391,6 @@ class Grids extends ConsumerWidget {
                     },
                     child: MaterialTileWidget(
                       material: mat,
-                      title: mat.material,
-                      subtitle: mat.properties.first.propertyName,
                     ),
                   ),
                 ),
@@ -361,150 +435,28 @@ class ColoredMaterialCards extends HookConsumerWidget {
         ),
       );
     }
-    // final Color backgroundColor = UniqueColorGenerator.getDualColors()[1];
-    // final Color textColor = UniqueColorGenerator.getDualColors()[0];
-    // return GridView(
-    //   scrollDirection: Axis.horizontal,
-    //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    //     crossAxisCount: gridItemCount ?? 3,
-    //     childAspectRatio: childAspectRatio,
-    //   ),
-    //   children: [
-    //     for (final mt in fltdRecMat)
-    //       Card(
-    //         color: backgroundColor,
-    //         borderOnForeground: true,
-    //         clipBehavior: Clip.hardEdge,
-    //         child: ConstrainedBox(
-    //           constraints: BoxConstraints.tight(const Size(100, 120)),
-    //           child: Stack(
-    //             children: [
-    //               Align(
-    //                 alignment: Alignment.topLeft,
-    //                 child: Padding(
-    //                   padding: const EdgeInsets.all(8.0),
-    //                   child: Icon(
-    //                     Icons.corporate_fare_sharp,
-    //                     color: textColor,
-    //                   ),
-    //                 ),
-    //               ),
-    //               Align(
-    //                 alignment: Alignment.topRight,
-    //                 child: Padding(
-    //                   padding: const EdgeInsets.all(8.0),
-    //                   child: Text(
-    //                     mt.properties
-    //                         .firstWhere(
-    //                           (element) =>
-    //                               element.propertyName.contains('name') ||
-    //                               element.propertyName.contains('descr'),
-    //                           orElse: () => PropertyModel(
-    //                               propertyName: '',
-    //                               propertyValue: '',
-    //                               section: ''),
-    //                         )
-    //                         .propertyValue,
-    //                     maxLines: 1,
-    //                     style: theme.textTheme.bodyLarge!.copyWith(
-    //                       color: textColor,
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ),
-    //               Align(
-    //                 alignment: Alignment.bottomLeft,
-    //                 child: Padding(
-    //                   padding: const EdgeInsets.all(8.0),
-    //                   child: Text(
-    //                     mt.material,
-    //                     style: theme.textTheme.titleLarge!
-    //                         .copyWith(color: textColor),
-    //                   ),
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       ),
-    //   ],
-    // );
 
     final scroller = useScrollController();
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1, childAspectRatio: 1 / childAspectRatio),
       itemCount: fltdRecMat.length,
       scrollDirection: Axis.horizontal,
       controller: scroller,
       physics: const ScrollPhysics(),
       itemBuilder: (context, index) {
-        return SizedBox(
-          height: 120,
-          width: 100,
-          child: InkWell(
-            onTap: () async {
-              ref
-                  .read(settingsControllerProvider.notifier)
-                  .addRecentMatarial(matList[index].material);
-              context.goNamed(
-                RouteConstants.matPropertiesPage,
-                pathParameters: <String, String>{'id': matList[index].material},
-              );
-            },
-            child: Card(
-              color: Color(int.parse(fltdRecMat[index].background)),
-              borderOnForeground: true,
-              clipBehavior: Clip.hardEdge,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.corporate_fare_sharp,
-                        color: Color(int.parse(fltdRecMat[index].text)),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        fltdRecMat[index]
-                            .properties
-                            .firstWhere(
-                              (element) =>
-                                  element.propertyName.contains('name') ||
-                                  element.propertyName.contains('descr'),
-                              orElse: () => PropertyModel(
-                                  propertyName: '',
-                                  propertyValue: '',
-                                  section: ''),
-                            )
-                            .propertyValue,
-                        maxLines: 1,
-                        style: theme.textTheme.bodyLarge!.copyWith(
-                          color: Color(int.parse(fltdRecMat[index].text)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        fltdRecMat[index].material,
-                        style: theme.textTheme.titleLarge!.copyWith(
-                            color: Color(
-                                int.parse(fltdRecMat[index].text) as int)),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+        return InkWell(
+          onTap: () async {
+            ref
+                .read(settingsControllerProvider.notifier)
+                .addRecentMatarial(matList[index].material);
+            context.goNamed(
+              RouteConstants.matPropertiesPage,
+              pathParameters: <String, String>{'id': matList[index].material},
+            );
+          },
+          child: MaterialTileWidget(
+            material: fltdRecMat[index],
           ),
         );
       },

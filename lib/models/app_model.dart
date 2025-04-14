@@ -1,4 +1,4 @@
-enum UrlsApp { base, materials, inventory, signIn }
+enum UrlsApp { base, materials, inventory, login }
 
 class UrlsAppModel {
   final int id;
@@ -10,10 +10,10 @@ class UrlsAppModel {
 
   static List<UrlsAppModel> urlTypes() {
     return <UrlsAppModel>[
-      UrlsAppModel(0, UrlsApp.base, 'Base URL', ''),
+      UrlsAppModel(0, UrlsApp.base, 'Base', ''),
       UrlsAppModel(1, UrlsApp.inventory, 'Inventory', ''),
       UrlsAppModel(2, UrlsApp.materials, 'Materials', ''),
-      UrlsAppModel(3, UrlsApp.signIn, 'SignIn', ''),
+      UrlsAppModel(3, UrlsApp.login, 'Login', ''),
       // UrlsAppModel(3, ),
     ];
   }

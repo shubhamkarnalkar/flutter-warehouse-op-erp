@@ -116,7 +116,7 @@ class SettingsController extends StateNotifier<SettingsModel> {
         await _settingsBox.put(1, state.copyWith(materialsUrl: value));
         state = _getSetting();
         break;
-      case UrlsApp.signIn:
+      case UrlsApp.login:
         await _settingsBox.put(1, state.copyWith(signInUrl: value));
         state = _getSetting();
         break;

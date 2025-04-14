@@ -7,7 +7,11 @@ final GoRouter router = GoRouter(
       path: '/',
       name: RouteConstants.home,
       builder: (context, state) => const Home(),
-      routes: [_setURLSPageRoute, _materialPropertiesRoute],
+      routes: [
+        _setURLSPageRoute,
+        _materialPropertiesRoute,
+        _transactionsPageRoute
+      ],
     ),
   ],
 );
@@ -24,6 +28,15 @@ final _materialPropertiesRoute = GoRoute(
   name: RouteConstants.matPropertiesPage,
   builder: (context, state) => MaterialPropertiesPage(
     material: state.pathParameters['id']!,
+  ),
+  routes: const [],
+);
+
+final _transactionsPageRoute = GoRoute(
+  path: 'transaction/:name',
+  name: RouteConstants.fillDetailsForTransactionsPage,
+  builder: (context, state) => FillDetailsForTransactionsPage(
+    name: state.pathParameters['name']!,
   ),
   routes: const [],
 );
