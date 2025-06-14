@@ -51,6 +51,8 @@ samples, guidance on mobile development, and a full API reference.
 flutter run --flavor prod -t lib/main_prod.dart
 
 flutter run -d chrome --flavor dev -t lib/main_dev.dart
+
+fvm flutter run -d chrome --flavor dev -v -t lib/main_dev.dart
 ```
 
 - Build an android apk:
