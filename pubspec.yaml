@@ -92,7 +92,6 @@ flutter:
   assets:
     - assets/
     - assets/svgs/
-    - assets/animations/
     - assets/images/
     - assets/lottie/
   # - images/a_dot_burr.jpeg
