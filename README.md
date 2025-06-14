@@ -63,7 +63,7 @@ fvm flutter run --wasm -d chrome --flavor dev -v -t lib/main_dev.dart
 
  flutter build apk --flavor prod -t lib/main_prod.dart --analyze-size --target-platform  android-arm
 
-  flutter build web -t lib/main_dev.dart
+  flutter build web --base-href /flutter-web-warehouse-op-erp/
   ```
 
 - For other type of apps:
